@@ -1,0 +1,23 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2015-09-02 00:14:26 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:56:43 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:56:43 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:56:50 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:56:50 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:56:50 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:57:19 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:57:19 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:57:21 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 01:57:22 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 18:31:11 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 18:31:11 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 18:35:24 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 18:35:24 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:40:46 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:40:46 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:40:51 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:40:51 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:40:59 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:40:59 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-09-02 19:41:00 --> 404 Page Not Found --> errors/error_404

@@ -1,0 +1,21 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2015-08-24 19:19:44 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:41 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:41 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:45 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:45 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:46 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:48 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:51 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:51 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:52 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:59 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:18:59 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:04 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:04 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:12 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:12 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:13 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:18 --> 404 Page Not Found --> errors/error_404
+ERROR - 2015-08-24 22:20:18 --> 404 Page Not Found --> errors/error_404

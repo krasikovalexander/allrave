@@ -1,0 +1,61 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2016-07-13 03:58:59 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 03:59:03 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 03:59:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:50:29 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:50:29 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:51:15 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:51:16 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 08:51:24 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:51:52 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:53:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:53:30 --> Severity: Warning  --> file_get_contents(http://maps.googleapis.com/maps/api/geocode/json?address=
+        52804&amp;sensor=false): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ /home/mikmcm4/allravetransportation.com/allrave/application/modules/reservation/controllers/reservation.php 321
+ERROR - 2016-07-13 08:53:30 --> Severity: Warning  --> file_get_contents(http://maps.googleapis.com/maps/api/geocode/json?address=
+        52801&amp;sensor=false): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ /home/mikmcm4/allravetransportation.com/allrave/application/modules/reservation/controllers/reservation.php 321
+ERROR - 2016-07-13 08:53:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:53:39 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 08:56:45 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 09:14:06 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 09:14:52 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 09:54:57 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 10:07:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 10:07:46 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 10:07:47 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 10:09:21 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 10:09:21 --> Severity: Warning  --> file_get_contents(http://maps.googleapis.com/maps/api/geocode/json?address=
+        01234&amp;sensor=false): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ /home/mikmcm4/allravetransportation.com/allrave/application/modules/reservation/controllers/reservation.php 321
+ERROR - 2016-07-13 10:09:21 --> Severity: Warning  --> file_get_contents(http://maps.googleapis.com/maps/api/geocode/json?address=
+        12345&amp;sensor=false): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ /home/mikmcm4/allravetransportation.com/allrave/application/modules/reservation/controllers/reservation.php 321
+ERROR - 2016-07-13 10:09:23 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 10:09:29 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 11:41:35 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 11:42:24 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 11:54:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 12:30:51 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 12:31:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 13:05:55 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 13:07:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 14:45:23 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 14:45:43 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 14:45:51 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 14:45:59 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 14:46:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:13 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:14 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:21 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:21 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:22 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 16:15:22 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 16:15:24 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:25 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 16:15:25 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 16:15:25 --> 404 Page Not Found --> errors/error_404
+ERROR - 2016-07-13 16:15:25 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2016-07-13 16:15:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/mikmcm4/allravetransportation.com/allrave/system/database/drivers/mysql/mysql_driver.php 91

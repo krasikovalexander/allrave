@@ -1,0 +1,25 @@
+<style>
+
+</style>
+
+<table>
+    <p>Hello <?php echo $admin_name; ?>,</p>
+    <p>You have a ride on <?php echo date('d-m-Y', strtotime($user[0]['date']));?> at <?php echo date('h:i A', strtotime($user[0]['date']));?></p>
+    <p>from : <?php echo $user[0]['pickup_address'];?></p>
+    <p>to : <?php echo $user[0]['dropoff_address'];?></p>
+    <p>Number of Passengers : <?php echo $user[0]['number_of_passengers'];?></p>
+</table>
+<p>
+<table>
+    <tr>
+        <td>    IF YOU HAVE QUESTIONS
+            CALL US NOW AT
+            Tel: (610) 255-7283
+            Toll Free: (844)-733-7283
+        </td>
+    </tr>
+    <tr>
+        <td><img src="<?php echo base_url() ?>resource/images/rave-logo.png" /></td>
+    </tr>
+</table>
+</p>

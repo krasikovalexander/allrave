@@ -1,0 +1,26 @@
+<?php if(!defined('BASEPATH')) exit('No direct script access allowed');
+
+class Cron_model extends CI_Model
+{
+    function get_unique_datetime()
+    {
+        $this->db->distinct();
+        $this->db->select('date');
+        $query = $this->db->get('slot_processing');
+
+        if ( $query->num_rows() > 0 )
+        {
+            $result = $query->result_array();
+            return $result;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function add_full_slot($date)
+    {
+
+    }
+}

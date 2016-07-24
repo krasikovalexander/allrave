@@ -1,0 +1,156 @@
+$(document).ready(function () {
+    var cdt = $('#cdt').val();
+    cdt = cdt.split(' ');
+    var cdt_date = cdt[0];
+    var cdt_time = cdt[1].replace(':', '');
+
+    $(".fancybox").fancybox();// activate the fancybox popup.
+
+    $("#date").appendDtpicker({
+        "dateOnly": true,
+        "dateFormat": "DD-MM-YYYY",
+        "futureOnly": true,
+        "closeOnSelected": true,
+        "autodateOnStart": false
+    });
+
+    $(document).on('click','tr .active', function() {
+        clear_slots(); //clear the unwanted slot classes.
+        if ($(".datepicker_table .active").hasClass('wday_sat') || $(".datepicker_table .active").hasClass('wday_sun')) { //For weekend days i.e. saturday or sunday.
+            weekend_past_slots();//set the weekend past slots i.e. disable all the slots less than 4am.
+            process_slots();
+        }
+        else { //if the day is weekday.
+            process_slots();//for the current date.
+        }
+        $(".fancybox").trigger("click");
+    });
+
+    $(document).on('click','.slot',function(){
+        if($(this).hasClass('slot_full') || $(this).hasClass('slot_past')){
+            return false;
+        }else{
+            $('#appointment_time').val($(this).text());
+            $.fancybox.close();
+        }
+    });
+
+    function process_slots(){
+        if (cdt_date == $('#date').val()) { //if it is the current date
+            get_past_slots();//get all the past slots
+            set_full_slot();//set the full slots.
+        } else { //if it is a future date.
+            set_full_slot();
+        }
+    }
+
+    function full_slots(slots){
+        var time_slots = [];
+        $.each(slots, function (key, value) {
+            var time = value.time;
+            time = convert_time(time);
+            time_slots.push($.trim(time));
+        });
+        $('#popup ul li').each(function () {
+            if(!(time_slots.indexOf($(this).attr('data-time')) == -1)){
+                $(this).addClass('slot_full');
+                $(this).qtip({
+                    content: {
+                        text: 'All reservations currently scheduled have a 2 hour gap to prevent overbooking If your reservation time is not available ' +
+                        'please call to see if your ride can be accommodated at 610-255-7283'
+                    }
+                });
+            }
+        });
+    }
+
+    function convert_time(time){
+        time = time.replace(':', '');
+        time = time.substring(0,time.length - 3);
+        return time;
+    }
+
+    function get_past_slots()
+    {
+        $('#popup ul li').each(function () {
+            if ($(this).attr('data-time') < cdt_time) {
+                $(this).addClass('slot_past');
+            }
+        });
+    }
+
+    function weekend_past_slots(){
+        $('#popup ul li').each(function () {
+            if ($(this).attr('data-time') < '0400') {
+                $(this).addClass('slot_past');
+            }
+        });
+    }
+
+    function set_full_slot(){
+        var date = $("#date").val(); // the selected date in the form.
+        $.post("reservation/getfullslots", { date: date }, function (result) {
+            var arr = JSON.parse(result); //here we get the result in json format.
+            full_slots(arr);
+        });
+    }
+
+    function clear_slots(){
+        $('#popup ul li').each(function () {
+            $(this).removeClass('slot_full');
+            $(this).removeClass('slot_past');
+            $(this).qtip("destroy",true);
+            $(this).removeAttr('aria-describedby');
+            $(this).removeAttr('data-hasqtip');
+        });
+    }
+
+    $(document).on('click','#calculate-btn', function(){
+        var p1_lat = $('#from-lat').val();
+        var p1_long = $('#from-long').val();
+        var p2_lat = $('#to-lat').val();
+        var p2_long = $('#to-long').val();
+        var distance = calcDistance(p1_lat,p1_long,p2_lat,p2_long);
+
+        var url = $('#calculate-btn').data('url');
+        $.post(url,{distance: distance}, function (e) {
+            var price = JSON.parse(e);
+            if(price !== null)
+            {
+                $('.rate_message').html('The Rate for the distance : $' + price).css('color','red');
+                $('.rate_message').removeClass('hidden');
+            }
+            else
+            {
+                $('.rate_message').html('No Rate found').css('color','red');
+                $('.rate_message').removeClass('hidden');
+            }
+
+
+        });
+    });
+
+    //calculates distance between two points in km's
+    function calcDistance(p1_lat,p1_long, p2_lat,p2_long){
+        var p1 = new google.maps.LatLng(p1_lat, p1_long);
+        var p2 = new google.maps.LatLng(p2_lat, p2_long);
+        /*return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);*/ //returns value in kms.
+        return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1609.34).toFixed(2); //return value in miles.
+    }
+
+    var rad = function(x) {
+        return x * Math.PI / 180;
+    };
+
+    var getDistance = function(p1, p2) {
+        var R = 6378137; // Earth’s mean radius in meter
+        var dLat = rad(p2.lat() - p1.lat());
+        var dLong = rad(p2.lng() - p1.lng());
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) *
+            Math.sin(dLong / 2) * Math.sin(dLong / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d; // returns the distance in meter
+    };
+});

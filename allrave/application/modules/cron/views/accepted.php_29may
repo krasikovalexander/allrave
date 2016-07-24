@@ -1,0 +1,27 @@
+<style>
+
+</style>
+
+<table>
+    <p>Hello <?php echo $user[0]['name']; ?>,</p>
+    <p>Your Ride has been booked with us.</p>
+</table>
+<!--new_code-->
+<p><?php if(isset($accepted)){?>
+        <a href="<?php echo base_url().'reservation/reject/'.$user[0]['id']; ?>">Cancel your Booking.</a>
+    <?php } ?>
+</p>
+<p>
+<table>
+        <tr>
+	<td>    IF YOU HAVE QUESTIONS
+            CALL US NOW AT
+            Tel: (610) 255-7283
+            Toll Free: (844)-733-7283
+        </td>
+	</tr>
+    <tr>
+        <td><img src="<?php echo base_url() ?>resource/images/rave-logo.png" /></td>
+    </tr>
+</table>
+</p>

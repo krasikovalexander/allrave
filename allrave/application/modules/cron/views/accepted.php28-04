@@ -1,0 +1,20 @@
+<style>
+
+</style>
+
+<table>
+    <p>Hello <?php echo $user[0]['name']; ?>,</p>
+    <p>Your Ride has been booked with us.</p>
+</table>
+<p>
+<table>
+    <tr>
+        <td><img src="<?php echo base_url() ?>resource/images/rave-logo.png" /></td>
+        <td>    IF YOU HAVE QUESTIONS
+            CALL US NOW AT
+            Tel: (610) 255-7283
+            Toll Free: (844)-733-7283
+        </td>
+    </tr>
+</table>
+</p>

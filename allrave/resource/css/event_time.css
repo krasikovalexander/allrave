@@ -1,0 +1,91 @@
+.slot{
+    background: floralwhite;
+    cursor: pointer;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #000000;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}
+.clear{
+    clear: both;
+}
+.slot_not_working{
+    background: #808080;
+    border: 1px solid #c0c0c0;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}
+.slot_past{
+    background: #808080;
+    color: #c0c0c0;
+    cursor: default;
+    border: 1px solid #000000;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}
+.slot_full{
+    background: red;
+    color: #ffffff;
+    cursor: pointer;
+    border: 1px solid #000000;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}
+.slot_booked{
+    background: cornflowerblue;
+    color: #ffffff;
+    cursor: pointer;
+    border: 1px solid #000000;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}
+.slot_rejected{
+    background: #000000;
+    color: #ffffff;
+    cursor: pointer;
+    border: 1px solid #000000;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}
+.slot_main{
+    background: gold;
+    color: #000000;
+    cursor: pointer;
+    border: 1px solid #000000;
+    font-size: smaller;
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    list-style: none;
+    text-align: center;
+}

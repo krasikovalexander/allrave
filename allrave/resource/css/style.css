@@ -1,0 +1,207 @@
+#evencal{
+	margin: 0 auto;
+}
+
+#evencal div.calendar{
+	float:left;
+}
+
+#evencal div.event_detail{
+	float:left;
+}
+
+select{
+	min-width: 50px;
+}
+
+table.date {
+	border: 1px solid #08C;
+	border-collapse: collapse;
+}
+.date th {
+	background: none repeat scroll 0% 0% #08C;
+	border-color: #08C;
+	text-transform: uppercase;
+	font-size: 80%;
+	color:#F2FFFF;
+	height: 2.5em;
+}
+.date td {
+	border: 1px solid #DDD;
+	vertical-align: top;
+}
+caption {
+
+	font-style: italic;
+	margin-bottom:5px;
+}
+
+a{
+	text-decoration:none;
+}
+
+a.prev_date, a.next_date{
+
+}
+
+div.active_date_event, div.date_event,
+div.active_no_event, div.no_event{
+	width:inherit;
+	height:inherit;
+	cursor:pointer;
+}
+
+div.active_date_event:hover, div.date_event:hover,
+div.active_no_event:hover, div.no_event:hover{
+	background-color: #D8ADFF;
+}
+
+div.active_date_event{
+	background-color: #FF7575;
+}
+
+div.active_no_event{
+	background-color: #80FFBF;
+}
+
+span.date{
+	font-family: 'Times New Roman';
+	font-size: 13px;
+	margin-left:3px;
+}
+span.event{
+	font-family: Arial;
+	font-weight:bold;
+	text-align:center;
+	color:blue;
+}
+
+.weekend_sat {
+	background-color: #F3F3F3;
+}
+.weekend_sun {
+	background-color: #FFE5E5;
+}
+
+.require{
+	color: red;
+}
+
+.error_require{
+	background-color: #ffd2d4;
+}
+
+.spacer{
+	clear:both;
+	color:red;
+	text-align:center;
+	font-size:12px;
+	padding: 3px;
+}
+
+.add_event {
+	font-family: Arial, Helvetica, sans-serif;
+	cursor:pointer;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 3px 8px 3px 25px;
+	background: #01b9ec url('images/add.png') no-repeat 5px center;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	border: 1px solid #01b9ec;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+	margin: 10px 0 0 22px;
+}
+
+/* from : http://www.paulund.co.uk/ */
+.info1,.info2,.message{margin:5px 20px 5px 20px; padding:3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;-moz-box-shadow: 4px 4px #dfe1d8;-webkit-box-shadow: 4px 4px #dfe1d8;box-shadow: 4px 4px #dfe1d8;}
+
+h4 { margin:5px 5px 5px 50px;padding:0; font-size:16px; }
+h4 img.edit, h4 img.delete{float:right; padding: 2px 5px 0 5px; cursor:pointer;}
+p { font-size:12px; color:#000; margin:5px 5px 5px 50px; }
+
+.info1{border:1px solid #9d9c49;color:#9d9c49;background:#fdfdcb url('images/warning.png') no-repeat; background-position:10px center;}
+.info2{border:1px solid #0e7fad;color:#0e7fad;background:#c0e9fa url('images/info.png') no-repeat; background-position:10px center;}
+.message{border:1px solid #000;color:#000;background:#efefef url('images/message.png') no-repeat; background-position:10px center;}
+.calendar_big table{width:100%}
+.calendar_big table span.date {float: right;
+padding: 0px 2px;
+color: #777;}
+.calendar_big td {text-align: center;}
+.calendar_big td a{height:80px;}
+.calendar_big .date th {text-align: center;color: #FFF;
+font-size: 1.3rem;
+font-weight: 500;
+padding: 10px 0px;
+text-transform: uppercase;}
+.calendar_big caption{font-size: 20px;}
+li.time {
+float: left;
+list-style: none outside none;
+border: 1px solid rgba(210, 210, 210, 1);
+margin: 2px;
+} 
+li.time a {
+float: left;
+text-align: center;
+width: 100%;
+color: white;
+}
+li.time input[type="submit"] {
+border: 0;
+text-align: center;
+width: 100%;
+padding: 5px;
+background: rgb(102, 101, 95);
+color:white;
+}
+.event_time_detail {
+min-width: 80px;
+min-height: 60px;
+}
+.calendar_big ul{padding:0; clear:both;}
+.external-event {
+    cursor: move;
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin: 5px;
+    padding: 10px;
+   min-width: 100px;
+	text-align: center;
+}
+caption. fa-calendar{color: #08C; font-size:1.3em}
+.date_event detail .event d1{background: none repeat scroll 0% 0% rgba(125, 116, 116, 1);
+color: #FFF9F9;
+padding: 3px;
+display: inline-block;
+border-radius: 5px;
+font-size: 11px;
+}
+.date_event detail .event d1 a{color:white}
+#today {background: none repeat scroll 0% 0% #08C;}
+#today a {
+color: white;padding: 1px 4px;
+border-radius: 4px;}
+table tfoot tr th a{color:white}
+.events ul li a{color:white}
+.events ul li{list-style:none}
+.inner_event a {background:#2E3E4E; border: 1px solid white;}
+
+
+
+
+
+
