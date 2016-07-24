@@ -12,12 +12,13 @@ $(document).ready(function () {
     $(".fancybox").fancybox();// activate the fancybox popup.
 
     $("#date").appendDtpicker({
-        "dateOnly": true,
+        "dateOnly": false,
         //"dateFormat": "DD-MM-YYYY",
-        "dateFormat": "MM-DD-YYYY",
+        "dateFormat": "MM-DD-YYYY HH:mm TT",
         "futureOnly": true,
         "closeOnSelected": true,
-        "autodateOnStart": false
+        "autodateOnStart": false,
+        "amPmInTimeList": true
     });
 
     $(document).on('click','tr .active', function() {

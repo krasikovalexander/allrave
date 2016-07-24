@@ -136,18 +136,18 @@
                     array('id' => 'email', 'name' => 'email', 'required' => 'required', 'placeholder' => 'Email','data-name' => 'Email')
                 ); ?>
 
-                <?php echo form_label('Select Date: '); ?> <?php echo form_error('hsdate'); ?>
+                <?php echo form_label('Date/time of pick up: '); ?> <?php echo form_error('hsdate'); ?>
                 <div class="">
                     <?php echo form_input(
-                        array('id' => 'date', 'class' => 'hsdate', 'name' => 'date', 'value' => '')
+                        array('id' => 'date', 'class' => 'hsdate', 'name' => 'date', 'value' => '', 'placeholder' => 'Select date')
                     ); ?>
                 </div>
-
+<!--
                 <?php form_label('Appointment Time: '); ?>
                 <?php echo form_input(
                     array('data-name' => 'Appointment Time','id' => 'appointment_time','required' => 'required', 'name' => 'appointment_time', 'readonly' => 'readonly','placeholder' => 'Appointment Time')
                 ) ?>
-
+-->
                 <?php form_label('Flight Number: '); ?>
                 <label>Flight Number:</label>
                 <?php echo form_input(
@@ -260,7 +260,9 @@
                     '1' => '1',
                     '2' => '2',
                     '3' => '3',
-                    '4' => '4'
+                    '4' => '4',
+                    '5' => '5',
+                    '6' => '6'
                 ); ?>
 
                 <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger"'); ?>
@@ -272,9 +274,13 @@
                     'cols' => '50',
                     'placeholder' => 'Kindly fill in any special instruction you would like to provide us'
                 )); ?>
-
+<!--
                 <label class="enrollnum1">Enroll in special offers
                     <?php echo form_checkbox(array('name'  => 'enroll', 'value' => 'Enroll', 'class' => 'enrollnum')); ?>
+                </label>
+-->
+                <label class='enrollnum1'>
+                <?php echo form_checkbox(array('name'  => 'terms', 'value' => 'terms', 'class' => 'enrollnum')); ?> I understand that the appointment has not been confirmed until I receive an confirming email    
                 </label>
                 <?php echo form_submit(array('value' => 'SUBMIT', 'class' => 'submit')); ?>
                 <?php echo form_reset(array('value' => 'RESET', 'class' => 'reset')); ?>
