@@ -24,11 +24,11 @@ class Reservation extends MX_Controller {
         $this->form_validation->set_rules('pickup_address', 'Pickup Address:', 'trim|required');
         $this->form_validation->set_rules('pickup_city', 'Pickup City', 'trim|required');
         $this->form_validation->set_rules('pickup_state', 'Pickup State', 'trim|required');
-        $this->form_validation->set_rules('pickup_zip', 'Pickup Zip', 'trim|required|integer');
+        $this->form_validation->set_rules('pickup_zip', 'Pickup Zip', 'trim|integer');
         $this->form_validation->set_rules('drop_address', 'Drop Address', 'trim|required');
         $this->form_validation->set_rules('drop_city', 'Drop City', 'trim|required');
         $this->form_validation->set_rules('drop_state', 'Drop State', 'trim|required');
-        $this->form_validation->set_rules('drop_zip', 'Drop Zip', 'trim|required|integer');
+        $this->form_validation->set_rules('drop_zip', 'Drop Zip', 'trim|integer');
         $this->form_validation->set_rules('passenger', 'Passenger', 'trim|required|callback_select_validate');
 
         if($this->form_validation->run() == FALSE) {
@@ -36,12 +36,11 @@ class Reservation extends MX_Controller {
         }
         else{
             $date = $this->input->post('date');
-            $date = DateTime::createFromFormat('m-d-Y', $date);
-            $date = $date->format('Y-m-d');
+            $fulldate = DateTime::createFromFormat('m-d-Y H:i A', $date);
+            $datetime  = $fulldate->format('Y-m-d H:i:s');
 
-            $time = $this->input->post('appointment_time');
-            $time = date("H:i:s", strtotime($time));
-            $datetime = $date.' '.$time;
+            $date = $fulldate->format('Y-m-d');
+            $time = $fulldate->format('H:i:s');
 
             $booking_time = date("Y-m-d H:i:s", time() - 60 * 60 * 5);//current cdt time.
 
@@ -84,29 +83,6 @@ class Reservation extends MX_Controller {
                 'uid' => $user_id
 
             );
-               //get the data of user for finding the distance if user already booked the same ride
-                $where_data= array(
-                            'email' => $data['email'],
-                            'pickup_zip' => $data['pickup_zip'],
-                            'dropoff_zip' => $data['dropoff_zip']
-                            );
-                $query = $this->db->get_where('reservation', $where_data);
-                $rowcount = $query->num_rows();
-                if($rowcount<1)
-                {
-                    $zip1=$where_data['pickup_zip'];
-                    $zip2=$where_data['dropoff_zip'];
-                    $zip_distance=$this->getDistance($zip1, $zip2);
-                   // echo "<script type='text/javascript'>alert($zip_distance);</script>";
-                }
-                
-
-               //end of get the data of user for finding the distance if user already booked the same ride
-
-
-
-
-
 
             //$subscribe = ($this->input->post('enroll'));
             //enter the user to the subscriber table.
@@ -117,20 +93,21 @@ class Reservation extends MX_Controller {
             $insert_id = $this->reservation_model->form_insert($data);          // put the data in the table
             if($insert_id){ //if the data has been saved in the database.
 
-                $data['heading'] = 'Your appointment has not yet been confirmed';
-                $data['user_subject'] = 'Thank you for your request';
+                //$data['heading'] = 'Your appointment has not yet been confirmed';
+                //$data['user_subject'] = 'Thank you for your request';
                 $webmaster = $this->appmodel->get_all_records_simple('config',array('config_key' => 'webmaster_email'));
                 $from = $webmaster[0]['value'];
 
-                send_email($data['user_subject'],$from,$data['email'],$data,'email');
+                //send_email($data['user_subject'],$from,$data['email'],$data,'email');
 
                 $data['admin_subject'] = 'The following request has been posted';
                 $data['heading'] = 'The following request has been posted';
                 $admin = $this->appmodel->get_all_records_simple('config',array('config_key' => 'admin_email'));
                 $to =  $admin[0]['value'];
-                send_email($data['admin_subject'],$from,$to,$data,'email');
+                send_email($data['admin_subject'],$from,$to,$data,'request');
 
-                $this->_full_slot($date,$time,$insert_id,$data['email']);
+
+                //$this->_full_slot($date,$time,$insert_id,$data['email']);
                 $this->session->set_flashdata('message', 'Your Request has been received by us, we will contact you shortly. Meanwhile, You can book another ride.');
                 redirect('reservation/thankyou');
 

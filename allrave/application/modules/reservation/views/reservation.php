@@ -57,7 +57,7 @@
                 </li>
                 <li><a href="http://www.allravetransportation.com/our-services/"><span>Services</span></a></li>
                 <li><a href="http://www.allravetransportation.com/rave-transportation-gallery/"><span>Photo Gallery</span></a></li>
-                <li class="last active"><a href="<?php echo base_url()?>reservation"><span>Book Now</span></a></li>
+                <li class="last active"><a href="<?php echo base_url()?>reservation"><span>Request an appointment</span></a></li>
 		<li><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
             </ul>
         </div>
@@ -71,10 +71,7 @@
             </div>
 
             <!-- <div class="col-lg-12"><h2>Reservation Form</h2></div> -->
-            <div class="error_message">
-                <ul></ul>
-		<?php echo validation_errors();?>
-            </div>
+
             <div class="col-lg-4 rightside">
                 <h2>Have Questions? </h2>
 
@@ -136,10 +133,10 @@
                     array('id' => 'email', 'name' => 'email', 'required' => 'required', 'placeholder' => 'Email','data-name' => 'Email')
                 ); ?>
 
-                <?php echo form_label('Date/time of pick up: '); ?> <?php echo form_error('hsdate'); ?>
+                <?php echo form_label('Date/time of pick up: *'); ?> <?php echo form_error('hsdate'); ?>
                 <div class="">
                     <?php echo form_input(
-                        array('id' => 'date', 'class' => 'hsdate', 'name' => 'date', 'value' => '', 'placeholder' => 'Select date')
+                        array('id' => 'date', 'class' => 'hsdate', 'name' => 'date', 'required' => 'required', 'value' => '', 'placeholder' => 'Select date')
                     ); ?>
                 </div>
 <!--
@@ -161,7 +158,7 @@
                 <?php echo form_label('Arrival Time:'); ?>
                 <?php echo form_input(array('id' => 'usr_time', 'name' => 'usr_time', 'value' => '','placeholder' => 'Enter Arrival time')); ?>
 
-                <?php echo form_label('Pickup Address:'); ?> <?php form_error('pickup_address'); ?>
+                <?php echo form_label('Pickup Address: *'); ?> <?php form_error('pickup_address'); ?>
                 <?php echo form_textarea(
                     array(
                         'id' => 'pickup_address',
@@ -203,14 +200,14 @@
                     array(
                         'id' => 'pickup_zip',
                         'name' => 'pickup_zip',
-                        'required' => 'required',
+                        //'required' => 'required',
                         'placeholder' => 'Zip Code',
                         'class' => 'ziparea',
                         'data-name' => 'Pickup Zip'
                     )
                 ); ?>
 
-                <?php echo form_label('Drop off address:'); ?> <?php form_error('drop_address'); ?>
+                <?php echo form_label('Drop off address: *'); ?> <?php form_error('drop_address'); ?>
                 <?php echo form_textarea(
                     array(
                         'id' => 'drop_address',
@@ -247,22 +244,22 @@
                     array(
                         'id' => 'drop_zip',
                         'name' => 'drop_zip',
-                        'required' => 'required',
+                        //'required' => 'required',
                         'placeholder' => 'Zip Code',
                         'class' => 'ziparea',
                         'data-name' => 'Drop Zip'
                     )
                 ); ?>
 
-                <?php echo form_label('Number of Passenger:'); ?> <?php echo form_error('passenger') ?>
+                <?php echo form_label('Number of Passenger: *'); ?> <?php echo form_error('passenger') ?>
                 <?php $passenger_option = array(
                     '' => 'Number of Passenger',
                     '1' => '1',
                     '2' => '2',
                     '3' => '3',
                     '4' => '4',
-                    '5' => '5',
-                    '6' => '6'
+                    '5' => '5 (surcharge will be added)',
+                    '6' => '6 (surcharge will be added)'
                 ); ?>
 
                 <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger"'); ?>
@@ -280,11 +277,15 @@
                 </label>
 -->
                 <label class='enrollnum1'>
-                <?php echo form_checkbox(array('name'  => 'terms', 'value' => 'terms', 'class' => 'enrollnum')); ?> I understand that the appointment has not been confirmed until I receive an confirming email    
+                <?php echo form_checkbox(array('id' => 'terms','name'  => 'terms', 'value' => 'terms', 'class' => 'enrollnum', 'required' => 'required')); ?> I understand that the appointment has not been confirmed until I receive an confirming email    
                 </label>
                 <?php echo form_submit(array('value' => 'SUBMIT', 'class' => 'submit')); ?>
                 <?php echo form_reset(array('value' => 'RESET', 'class' => 'reset')); ?>
                 <?php echo form_close(); ?>
+                <div class="error_message">
+                    <ul></ul>
+                    <?php echo validation_errors();?>
+                </div>
                 <p><strong class="spacolor">Special Instruction:</strong> Please make sure your details are correct
                     before submitting form and that all fields marked with * are completed!.</p>
             </div>

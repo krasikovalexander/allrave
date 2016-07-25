@@ -43,7 +43,7 @@
                 </li>
                 <li><a href="#"><span>Services</span></a></li>
                 <li><a href="#"><span>Photo Gallery</span></a></li>
-                <li class="last active"><a href="#"><span>Book Now</span></a></li>
+                <li class="last active"><a href="#"><span>Request an appointment</span></a></li>
             </ul>
         </div>
     </div>

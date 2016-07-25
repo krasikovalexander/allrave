@@ -53,7 +53,7 @@
                 </li>
                 <li><a href="#"><span>Services</span></a></li>
                 <li><a href="#"><span>Photo Gallery</span></a></li>
-                <li><a href="#"><span>Book Now</span></a></li>
+                <li><a href="#"><span>Request an appointment</span></a></li>
 		<li class="last active"><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
             </ul>
         </div>

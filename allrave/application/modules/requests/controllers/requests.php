@@ -62,7 +62,7 @@ class Requests extends MX_Controller
         }
         else
         {
-            $data['requests'] = $this->appmodel->get_records_by_limit('reservation',array(),$limit = 10);
+            $data['requests'] = $this->appmodel->get_all_records_simple('reservation',array('status'=>'new'));
         }
 
         $data['page'] = lang('requests');
@@ -276,7 +276,12 @@ class Requests extends MX_Controller
         {
             $where = array('status' => $type);
         }
-        $data = $this->appmodel->get_records_by_limit('reservation',$where,$limit);
+        if ($limit) {
+            $data = $this->appmodel->get_records_by_limit('reservation',$where,$limit);
+        } else {
+            $data = $this->appmodel->get_all_records_simple('reservation',$where);
+        }
+        
         echo json_encode($data);
         exit;
     }

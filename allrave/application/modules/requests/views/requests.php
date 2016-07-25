@@ -47,7 +47,8 @@
                                     <div id="number_of_requests" class="dataTables_length">
                                         <label>Show
                                             <select size="1" id="request_select" name="number_of_requests" aria-controls="customers">
-                                                <option value="10" selected="selected">10</option><option value="25">25</option>
+                                                <option value="0" selected="selected">All</option>
+                                                <option value="10">10</option><option value="25">25</option>
                                                 <option value="50">50</option>
                                             </select> Entries
                                         </label>
@@ -62,9 +63,10 @@
                                 <div class="col-sm-4"><div class="dataTables_filter" id="customers_filter">
                                         <label>Type:</label>
                                         <select class="request_type">
-                                            <option value="all">All</option>
+                                            <option value="new">New</option>
                                             <option value="accepted">Accepted</option>
                                             <option value="rejected">Rejected</option>
+                                            <option value="all">All</option>
                                         </select>
                                     </div>
                                 </div>

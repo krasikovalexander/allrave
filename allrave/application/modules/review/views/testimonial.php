@@ -108,7 +108,7 @@ Toll Free: (844)-733-7283</h3></div>
            </li>
            <li><a href="#"><span>Services</span></a></li>
            <li><a href="#"><span>Photo Gallery</span></a></li>
-           <li class="last active"><a href="#"><span>Book Now</span></a></li>
+           <li class="last active"><a href="#"><span>Request an appointment</span></a></li>
     	</ul> -->
 	<ul>
                 <li><a href="http://www.allravetransportation.com/"><span>Home</span></a></li>
@@ -120,7 +120,7 @@ Toll Free: (844)-733-7283</h3></div>
                 </li>
                 <li><a href="http://www.allravetransportation.com/our-services/"><span>Services</span></a></li>
                 <li><a href="http://www.allravetransportation.com/rave-transportation-gallery/"><span>Photo Gallery</span></a></li>
-                <!--<li><a href="<?php echo base_url()?>reservation"><span>Book Now</span></a></li>-->
+                <!--<li><a href="<?php echo base_url()?>reservation"><span>Request an appointment</span></a></li>-->
 		<li class="last active"><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
             </ul>
     </div>

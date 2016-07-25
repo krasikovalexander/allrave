@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#reservation_form").submit(function(event){
         //validations.
         var error_message = $('.error_message p');
-        var fields = ['username', 'phone', 'email', 'pickup_address', 'pickup_city', 'pickup_state', 'pickup_zip','drop_address', 'drop_city', 'drop_state','drop_zip','passenger','appointment_time'];
+        var fields = ['username', 'phone', 'email', 'pickup_address', 'pickup_city', 'pickup_state', 'drop_address', 'drop_city', 'drop_state', 'passenger','appointment_time', 'terms'];
         var valid = validation(fields);
 
         if(!valid){//preventDefault if validation failed.
@@ -41,6 +41,11 @@ $(document).ready(function () {
                     valid = false;
                     $('.error_message ul').append("<li>" + field.attr('data-name') + ' is required'+ "</li>");
                 }
+            } else if(field.is(':checkbox')) {
+                if (!field.is(':checked')) {
+                    valid = false;
+                    $('.error_message ul').append("<li>You must agree with request conditions to proceed</li>");
+                }
             }
         });
 
@@ -65,7 +70,7 @@ $(document).ready(function () {
         }
 
         var zipRegex = /^\d{5}$/;
-        if (!zipRegex.test($('#pickup_zip').val()) || !zipRegex.test($('#drop_zip').val()))
+        if (($('#pickup_zip').val() && !zipRegex.test($('#pickup_zip').val())) || ( $('#drop_zip').val() && !zipRegex.test($('#drop_zip').val())))
         {
             valid = false;
             $('.error_message ul').append("<li> Please enter the zip in proper format</li>");
