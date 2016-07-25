@@ -18,7 +18,8 @@ $(document).ready(function () {
         "futureOnly": true,
         "closeOnSelected": true,
         "autodateOnStart": false,
-        "amPmInTimeList": true
+        "amPmInTimeList": true,
+        "minuteInterval": 15
     });
 
     $(document).on('click','tr .active', function() {
