@@ -23,7 +23,7 @@
     <link href="<?= base_url() ?>resource/css/jquery.simple-dtpicker.css" type="text/css" rel="stylesheet" media="all">
     <link href="<?= base_url() ?>resource/css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
     <!-- <link href="<?= base_url() ?>resource/css/menu_styles.css" rel="stylesheet">-->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.css" type="text/css" rel="stylesheet" media="all">
 
     <!--//web-font-->
     <!-- Custom Theme files -->
@@ -34,7 +34,7 @@
     <script type="text/javascript" src="<?= base_url() ?>resource/js/min_js.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>resource/js/jquery.simple-dtpicker.js"></script>
     <script type="text/javascript" src="<?= base_url() ?>resource/js/jquery.fancybox.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.js"></script>
  <!--   //main menu  
 
     <script src="<?= base_url() ?>resource/js/script.js"></script> -->

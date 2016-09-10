@@ -35,6 +35,8 @@
                 </ul> </li>
                 <li class="<?php if($page == lang('users')){echo  "active"; }?>"> <a href="<?=base_url()?>users/account" > <i class="fa fa-lock icon"> <b class="bg-success"></b> </i>
                 <span><?=lang('system_users')?> </span> </a> </li>
+                <li class="<?php if($page == lang('hotels')){echo  "active"; }?>"> <a href="<?=base_url()?>hotels/manage" > <i class="fa fa-hotel icon"> <b class="bg-success"></b> </i>
+                <span><?=lang('hotels')?> </span> </a> </li>
 
               </ul> </nav>
             </div>

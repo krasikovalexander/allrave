@@ -7,9 +7,9 @@
     <link href="<?= base_url() ?>resource/css/jquery.simple-dtpicker.css" type="text/css" rel="stylesheet" media="all">
     <link href="<?= base_url() ?>resource/css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
     <link href="<?= base_url() ?>resource/css/menu_styles.css" rel="stylesheet">
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.css" type="text/css" rel="stylesheet" media="all">
     <!--web-font-->
-	<link href='http://fonts.googleapis.com/css?family=Federo' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Federo' rel='stylesheet' type='text/css'>
     <!--//web-font-->
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,7 @@
     <?php }else{?>
     <script type="text/javascript" src="<?= base_url() ?>resource/js/reservation_multi_vehicles.js"></script>
     <?php } ?>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.js"></script>
     <!--//main menu  -->
 
     <script src="<?= base_url() ?>resource/js/script.js"></script>
@@ -52,11 +52,11 @@
     <div class="row main_menu">
         <div id="cssmenu">
             <ul>
-                <li><a href="http://www.allravetransportation.com/"><span>Home</span></a></li>
-                <li><a href="http://www.allravetransportation.com/about-rave-transportation/"><span>Company</span></a>
+                <li><a href="<?php echo base_url('../')?>"><span>Home</span></a></li>
+                <li><a href="<?php echo base_url('../about-rave-transportation')?>"><span>Company</span></a>
                 </li>
-                <li><a href="http://www.allravetransportation.com/our-services/"><span>Services</span></a></li>
-                <li><a href="http://www.allravetransportation.com/rave-transportation-gallery/"><span>Photo Gallery</span></a></li>
+                <li><a href="<?php echo base_url('../our-services')?>"><span>Services</span></a></li>
+                <li><a href="<?php echo base_url('../rave-transportation-gallery')?>"><span>Photo Gallery</span></a></li>
                 <li class="last active"><a href="<?php echo base_url()?>reservation"><span>Request an appointment</span></a></li>
 		<li><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
             </ul>

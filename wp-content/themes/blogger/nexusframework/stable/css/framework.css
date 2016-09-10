@@ -1,21 +1,21 @@
-@import url('http://fonts.googleapis.com/css?family=Droid+Sans:400,700');
-@import url('http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic');
-@import url('http://fonts.googleapis.com/css?family=Crafty+Girls');
-@import url('http://fonts.googleapis.com/css?family=Trade+Winds');
-@import url('http://fonts.googleapis.com/css?family=Cherry+Cream+Soda');
-@import url('http://fonts.googleapis.com/css?family=Federo');
-@import url('http://fonts.googleapis.com/css?family=Smokum');
-@import url('http://fonts.googleapis.com/css?family=Lobster');
-@import url('http://fonts.googleapis.com/css?family=Raleway:100');
-@import url('http://fonts.googleapis.com/css?family=Rock+Salt');
-@import url('http://fonts.googleapis.com/css?family=Kranky');
-@import url('http://fonts.googleapis.com/css?family=Sancreek');
-@import url('http://fonts.googleapis.com/css?family=Righteous');
-@import url('http://fonts.googleapis.com/css?family=UnifrakturMaguntia');
-@import url('http://fonts.googleapis.com/css?family=Vidaloka');
-@import url('http://fonts.googleapis.com/css?family=Great Vibes');
-@import url('http://fonts.googleapis.com/css?family=Oswald:400,300');
-@import url('http://fonts.googleapis.com/css?family=Open+Sans');
+@import url('//fonts.googleapis.com/css?family=Droid+Sans:400,700');
+@import url('//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic');
+@import url('//fonts.googleapis.com/css?family=Crafty+Girls');
+@import url('//fonts.googleapis.com/css?family=Trade+Winds');
+@import url('//fonts.googleapis.com/css?family=Cherry+Cream+Soda');
+@import url('//fonts.googleapis.com/css?family=Federo');
+@import url('//fonts.googleapis.com/css?family=Smokum');
+@import url('//fonts.googleapis.com/css?family=Lobster');
+@import url('//fonts.googleapis.com/css?family=Raleway:100');
+@import url('//fonts.googleapis.com/css?family=Rock+Salt');
+@import url('//fonts.googleapis.com/css?family=Kranky');
+@import url('//fonts.googleapis.com/css?family=Sancreek');
+@import url('//fonts.googleapis.com/css?family=Righteous');
+@import url('//fonts.googleapis.com/css?family=UnifrakturMaguntia');
+@import url('//fonts.googleapis.com/css?family=Vidaloka');
+@import url('//fonts.googleapis.com/css?family=Great Vibes');
+@import url('//fonts.googleapis.com/css?family=Oswald:400,300');
+@import url('//fonts.googleapis.com/css?family=Open+Sans');
 
 /*  
 	Name: Framework
@@ -2499,3 +2499,8 @@ h3#order_review_heading,
 }
 
 /*  -- end  new style sheet --*/
+
+.nxs-linkcolorvar-c12-m .nxs-applylinkvarcolor h6 a {
+    color: #000103 !important;
+    font-weight: normal;
+}

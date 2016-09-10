@@ -623,4 +623,27 @@ $lang['admin'] = 'Admin';
 $lang['general_details'] = 'General Details';
 $lang['menus'] = 'Menus';
 $lang['rooms'] = 'Rooms';
+
+$lang['hotels'] = 'Hotels';
+$lang['edit_hotel'] = 'Edit Hotel';
+$lang['new_hotel'] = 'New Hotel';
+$lang['create_hotel'] = 'Create Hotel';
+$lang['hotel_name'] = 'Name';
+$lang['hotel_logo'] = 'Logo';
+$lang['hotel_requests'] = 'Requests';
+$lang['hotel_creation_failed'] = 'Create failed. Ensure you fill all required fields.';
+$lang['delete_hotel_warning'] = 'This action will delete all data related to this hotel. Proceed?';
+$lang['delete_hotel'] = 'Delete Hotel';
+$lang['hotel_deleted_successfully'] = 'Hotel deleted successfully';
+$lang['hotel_edited_successfully'] = 'Hotel edited successfully';
+$lang['hotel_emails'] = 'Emails';
+$lang['state'] = 'State';
+$lang['hotel_email_deleted_successfully'] = 'Hotel email deleted successfully';
+$lang['hotel_email_edited_successfully'] = 'Hotel email edited successfully';
+$lang['hotel_email_creation_failed'] = 'Create failed. Ensure you fill all required fields.';
+$lang['edit_hotel_email'] = 'Edit Email';
+$lang['delete_hotel_email_warning'] = 'This action will delete all data related to this email. Proceed?';
+$lang['delete_email'] = 'Delete Email';
+
+$lang['request_sent'] = "Request sent";
 /* End of file fx_lang.php */

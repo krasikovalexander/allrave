@@ -7,7 +7,7 @@
     <link href="<?php echo base_url() ?>resource/css/bootstrap-rating.css" type="text/css" rel="stylesheet" media="all">
     <!--web-font-->
     <link
-        href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400'
+        href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400'
         rel='stylesheet' type='text/css'>
     <link href="<?php echo base_url() ?>resource/css/menu_styles.css" rel="stylesheet">
     <!--//web-font-->

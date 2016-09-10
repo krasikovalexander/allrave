@@ -8,7 +8,7 @@
     <link href="<?php echo base_url()?>resource/css/simplePagination.css" type="text/css" rel="stylesheet" media="all">
     <link href="<?php echo base_url() ?>resource/css/bootstrap-rating.css" type="text/css" rel="stylesheet" media="all">
 	<!--web-font-->
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
 	<!--//web-font-->
 	<!-- Custom Theme files -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,16 +111,16 @@ Toll Free: (844)-733-7283</h3></div>
            <li class="last active"><a href="#"><span>Request an appointment</span></a></li>
     	</ul> -->
 	<ul>
-                <li><a href="http://www.allravetransportation.com/"><span>Home</span></a></li>
-                <li><a href="http://www.allravetransportation.com/about-rave-transportation/"><span>Company</span></a>
+                <li><a href="<?php echo base_url('../')?>"><span>Home</span></a></li>
+                <li><a href="<?php echo base_url('../about-rave-transportation')?>"><span>Company</span></a>
                     <!-- <ul>
                         <li class="has-sub"><a href="#"><span>Product 1</span></a></li>
                         <li class="has-sub"><a href="#"><span>Product 2</span></a></li>
                     </ul> -->
                 </li>
-                <li><a href="http://www.allravetransportation.com/our-services/"><span>Services</span></a></li>
-                <li><a href="http://www.allravetransportation.com/rave-transportation-gallery/"><span>Photo Gallery</span></a></li>
-                <!--<li><a href="<?php echo base_url()?>reservation"><span>Request an appointment</span></a></li>-->
+                <li><a href="<?php echo base_url('../our-services')?>"><span>Services</span></a></li>
+                <li><a href="<?php echo base_url('../rave-transportation-gallery')?>"><span>Photo Gallery</span></a></li>
+                <li><a href="<?php echo base_url()?>reservation"><span>Request an appointment</span></a></li>
 		<li class="last active"><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
             </ul>
     </div>

@@ -9,7 +9,7 @@ $(document).ready(function () {
     var cdt_current_date = cdt_current[0];
     var cdt_current_time = cdt_current[1].replace(':', '');
 
-    $(".fancybox").fancybox();// activate the fancybox popup.
+    //$(".fancybox").fancybox();// activate the fancybox popup.
 
     $("#date").appendDtpicker({
         "dateOnly": false,

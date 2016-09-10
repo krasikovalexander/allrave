@@ -6,7 +6,7 @@
     <link href="<?=base_url()?>resource/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
     <link href="<?=base_url()?>resource/css/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet" media="all">
     <!--web-font-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
     <!--//web-font-->
     <!-- Custom Theme files -->
     <meta http-equiv="refresh" content="5; url=<?php echo 'reservation';?>" />

@@ -293,7 +293,7 @@ class Reservation extends MX_Controller {
     //code to find the distence between two zip codes
         // This function returns Longitude & Latitude from zip code.
         function getLnt($zip){
-        $url = "http://maps.googleapis.com/maps/api/geocode/json?address=
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=
         ".urlencode($zip)."&sensor=false";
         $result_string = file_get_contents($url);
         $result = json_decode($result_string, true);
