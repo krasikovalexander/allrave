@@ -30,10 +30,6 @@
     <script src="<?= base_url() ?>resource/js/script.js"></script>
     <script src="<?= base_url() ?>resource/js/reservation_form.js"></script>
 
-    <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.min.css" rel="stylesheet">
-    <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.themes.min.css" rel="stylesheet">
-    <script type="text/javascript" src="<?= base_url() ?>resource/js/easyautocomplete/jquery.easy-autocomplete.min.js"></script>
-
 </head>
 
 <body>
@@ -110,7 +106,7 @@
             <div class="col-lg-8 resform">
                 <h2>Reservation Form</h2>
                 <?php //echo validation_errors(); ?>
-                <?php $attributes = array('id' => 'reservation_form', 'autocomplete'=>"off"); ?>
+                <?php $attributes = array('id' => 'reservation_form'); ?>
                 <?php echo form_open('reservation', $attributes); ?>
                 <!--<form action="<? /*=base_url()*/ ?>reservation/book_appointment" method="post" id="reservation_form">-->
                 <?php echo form_label('Name: *'); ?> <?php echo form_error('username'); ?>
@@ -169,9 +165,7 @@
                         'name' => 'pickup_address',
                         'rows' => '1',
                         'cols' => '50',
-                        'placeholder' => 'Type POI or address',
-                        'data-type' => 'pickup',
-                        'autocomplete' => 'off'
+                        'placeholder' => 'Address Line 1'
                     )
                 ); ?>
 
@@ -220,9 +214,7 @@
                         'name' => 'drop_address',
                         'rows' => '1',
                         'cols' => '50',
-                        'placeholder' => 'Type POI or address',
-                        'data-type' => 'drop',
-                        'autocomplete' => 'off'
+                        'placeholder' => 'Address Line 1'
                     )
                 ); ?>
 
@@ -478,52 +470,5 @@
 
 </div>
 <div id="overlay"></div>
-
-<script>
-    var places = <?php echo json_encode($places, JSON_PRETTY_PRINT) ?>;
-
-    var options = {
-        data: places,
-        getValue: function(element) {
-            return element.name+" - "+element.address+", "+element.city+", "+element.state;
-        },
-        list: {
-            match: {
-                enabled: true
-            },
-            onClickEvent: function() {
-                var item = $("#pickup_address").getSelectedItemData();
-                console.log(item);
-                $("#pickup_address").val(item.address);
-                $("#pickup_city").val(item.city);
-                $("#pickup_state").val(item.state);
-                $("#pickup_zip").val(item.zip);
-            }
-        }
-    };
-    $("#pickup_address").easyAutocomplete(options);
-
-    var dropOptions = {
-        data: places,
-        getValue: function(element) {
-            return element.name+" - "+element.address+", "+element.city+", "+element.state;
-        },
-        list: {
-            match: {
-                enabled: true
-            },
-            onClickEvent: function() {
-                var item = $("#drop_address").getSelectedItemData();
-                $("#drop_address").val(item.address);
-                $("#drop_city").val(item.city);
-                $("#drop_state").val(item.state);
-                $("#drop_zip").val(item.zip);
-            }
-        }
-    };
-
-    $("#drop_address").easyAutocomplete(dropOptions);
-
-</script>
 </body>
 </html>

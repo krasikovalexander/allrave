@@ -19,8 +19,39 @@ $(document).ready(function () {
         "closeOnSelected": true,
         "autodateOnStart": false,
         "amPmInTimeList": true,
-        "minuteInterval": 15
+        "minuteInterval": 5,
+        "closeButton": false,
+        "onHide": function(handler) {
+            if($(".timelist_item.active").size() == 0) {
+                return false;
+            }
+            return true;
+        }
     });
+
+    /*jQuery('#date').periodpicker({
+        norange: true, // use only one value
+        cells: [1, 2], // show only one month
+
+        resizeButton: false, // deny resize picker
+        fullsizeButton: false,
+        fullsizeOnDblClick: false,
+
+        timepicker: true, // use timepicker
+        timepickerOptions: {
+            hours: true,
+            minutes: true,
+            seconds: false,
+            ampm: true
+        },
+        //formatDateTime: "MM/DD/YYYY HH:mm",
+        //minDate: moment().format("MM/DD/YYYY"),
+        //formatDate: 'MM/DD/YYYY',
+        hideOnBlur: false,
+        
+    });*/
+
+
 
     $(document).on('click','tr .active', function() {
         clear_slots(); //clear the unwanted slot classes.

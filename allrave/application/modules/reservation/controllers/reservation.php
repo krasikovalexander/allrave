@@ -16,6 +16,9 @@ class Reservation extends MX_Controller {
     function index()
     {
         $data['count_vehicles'] = $this->appmodel->count_vehicles();
+        $this->load->model('places/place_model');
+        $data['places'] = $this->place_model->places();
+
         //include the form validation library.
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username','Name','trim|required');
@@ -32,7 +35,7 @@ class Reservation extends MX_Controller {
         $this->form_validation->set_rules('passenger', 'Passenger', 'trim|required|callback_select_validate');
 
         if($this->form_validation->run() == FALSE) {
-            $this->load->view('reservation',$data);
+            $this->load->view('reservation', $data);
         }
         else{
             $date = $this->input->post('date');
@@ -127,11 +130,11 @@ class Reservation extends MX_Controller {
     function select_validate($select_val)
     {
         if($select_val=="Number of Passenger"){
-	$this->form_validation->set_message('select_validate', 'Please Select The Number Of Passengers.');
-	return false;
-	} else{
-	return true;
-	}
+	        $this->form_validation->set_message('select_validate', 'Please Select The Number Of Passengers.');
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public function getfullslots()

@@ -534,3 +534,10 @@ img {
 #signup {
     padding-bottom: 18px;
 }
+
+#overlay {
+    background:rgba(0,0,0,0.3);
+    display:none;
+    width:100%; height:100%;
+    position:fixed; top:0; left:0; z-index:100001;
+}

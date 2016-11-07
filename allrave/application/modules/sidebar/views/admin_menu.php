@@ -32,11 +32,20 @@
                 <ul class="nav lt">
                   <li class="<?php if($page == lang('system_settings')){echo "active"; } ?>"> <a href="<?=base_url()?>settings/update/system" > <i class="fa fa-angle-right"></i>
                   <span><?=lang('system_settings')?> </span> </a> </li>
-                </ul> </li>
-                <li class="<?php if($page == lang('users')){echo  "active"; }?>"> <a href="<?=base_url()?>users/account" > <i class="fa fa-lock icon"> <b class="bg-success"></b> </i>
-                <span><?=lang('system_users')?> </span> </a> </li>
-                <li class="<?php if($page == lang('hotels')){echo  "active"; }?>"> <a href="<?=base_url()?>hotels/manage" > <i class="fa fa-hotel icon"> <b class="bg-success"></b> </i>
-                <span><?=lang('hotels')?> </span> </a> </li>
+                </ul> 
+              </li>
+
+              <li class="<?php if($page == lang('users')){echo  "active"; }?>"> <a href="<?=base_url()?>users/account" > <i class="fa fa-lock icon"> <b class="bg-success"></b> </i>
+                <span><?=lang('system_users')?> </span> </a> 
+              </li>
+              
+              <li class="<?php if($page == lang('hotels')){echo  "active"; }?>"> <a href="<?=base_url()?>hotels/manage" > <i class="fa fa-hotel icon"> <b class="bg-success"></b> </i>
+                <span><?=lang('hotels')?> </span> </a> 
+              </li>
+
+              <li class="<?php if($page == lang('places')){echo  "active"; }?>"> <a href="<?=base_url()?>places/manage" > <i class="fa fa-map-marker icon"> <b class="bg-success"></b> </i>
+                <span><?=lang('places')?> </span> </a> 
+              </li>
 
               </ul> </nav>
             </div>

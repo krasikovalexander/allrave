@@ -1479,13 +1479,17 @@
 						// Hide a picker
 						var $input = InputObjects[$picker.data("inputObjectId")];
 						var handler = new PickerHandler($picker, $input);
-						handler.hide();
+						
 
 						// Call a event-hanlder
 						var func = $picker.data('onHide');
 						if (func != null) {
 							console.log("dtpicker- Call the onHide handler");
-							func(handler);
+							if (func(handler)) {
+								handler.hide();
+							}
+						} else {
+							handler.hide();
 						}
 					}
 				}

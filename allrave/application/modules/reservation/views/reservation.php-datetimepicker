@@ -4,8 +4,8 @@
     <title>Reservation Form Page Layouts</title>
     <link href="<?= base_url() ?>resource/css/formstyle.css" type="text/css" rel="stylesheet" media="all">
     <link href="<?= base_url() ?>resource/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
-    <link href="<?= base_url() ?>resource/css/jquery.simple-dtpicker.css" type="text/css" rel="stylesheet" media="all">
-    <link href="<?= base_url() ?>resource/css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">
+    <!--<link href="<?= base_url() ?>resource/css/jquery.simple-dtpicker.css" type="text/css" rel="stylesheet" media="all">
+    <link href="<?= base_url() ?>resource/css/jquery.fancybox.css" type="text/css" rel="stylesheet" media="all">-->
     <link href="<?= base_url() ?>resource/css/menu_styles.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.css" type="text/css" rel="stylesheet" media="all">
     <!--web-font-->
@@ -15,10 +15,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <script type="text/javascript" src="<?= base_url() ?>resource/js/jquery-2.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="<?= base_url() ?>resource/js/jquery-2.1.1.min.js"></script>-->
     <script type="text/javascript" src="<?= base_url() ?>resource/js/min_js.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>resource/js/jquery.simple-dtpicker.js"></script>
-    <script type="text/javascript" src="<?= base_url() ?>resource/js/jquery.fancybox.js"></script>
+
+
+    <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.themes.min.css" rel="stylesheet">
+    <script type="text/javascript" src="<?= base_url() ?>resource/js/easyautocomplete/jquery.easy-autocomplete.min.js"></script>
+
+    <script type="text/javascript" src="<?= base_url() ?>resource/js/periodpicker/moment.min.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>resource/js/periodpicker/jquery.mousewheel.min.js"></script>
+    <link href="<?= base_url() ?>resource/js/periodpicker/jquery.periodpicker.min.css" rel="stylesheet">
+    <script type="text/javascript" src="<?= base_url() ?>resource/js/periodpicker/jquery.periodpicker.full.min.js"></script>
+    <link href="<?= base_url() ?>resource/js/periodpicker/jquery.timepicker.min.css" rel="stylesheet">
+    <script type="text/javascript" src="<?= base_url() ?>resource/js/periodpicker/jquery.timepicker.min.js"></script>
+
+    <!--<script type="text/javascript" src="<?= base_url() ?>resource/js/jquery.simple-dtpicker.js"></script>
+    <script type="text/javascript" src="<?= base_url() ?>resource/js/jquery.fancybox.js"></script>-->
     <?php if ($count_vehicles == 1){?>
     <script type="text/javascript" src="<?= base_url() ?>resource/js/reservation.js"></script>
     <?php }else{?>
@@ -29,10 +42,6 @@
 
     <script src="<?= base_url() ?>resource/js/script.js"></script>
     <script src="<?= base_url() ?>resource/js/reservation_form.js"></script>
-
-    <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.min.css" rel="stylesheet">
-    <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.themes.min.css" rel="stylesheet">
-    <script type="text/javascript" src="<?= base_url() ?>resource/js/easyautocomplete/jquery.easy-autocomplete.min.js"></script>
 
 </head>
 
@@ -140,7 +149,7 @@
                 <?php echo form_label('Date/time of pick up: *'); ?> <?php echo form_error('hsdate'); ?>
                 <div class="">
                     <?php echo form_input(
-                        array('id' => 'date', 'class' => 'hsdate', 'name' => 'date', 'required' => 'required', 'value' => '', 'placeholder' => 'Select date')
+                        array('id' => 'date', 'name' => 'date', 'required' => 'required', 'value' => '', 'placeholder' => 'Select date')
                     ); ?>
                 </div>
 <!--

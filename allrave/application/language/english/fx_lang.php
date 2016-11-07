@@ -645,5 +645,21 @@ $lang['edit_hotel_email'] = 'Edit Email';
 $lang['delete_hotel_email_warning'] = 'This action will delete all data related to this email. Proceed?';
 $lang['delete_email'] = 'Delete Email';
 
+
+$lang['places'] = 'Places';
+$lang['edit_place'] = 'Edit Place';
+$lang['new_place'] = 'New Place';
+$lang['create_place'] = 'Create Place';
+$lang['place_name'] = 'Title';
+$lang['place_creation_failed'] = 'Create failed. Ensure you fill all required fields.';
+$lang['delete_place_warning'] = 'This action will delete all data related to this place. Proceed?';
+$lang['delete_place'] = 'Delete Place';
+$lang['place_deleted_successfully'] = 'Place deleted successfully';
+$lang['place_edited_successfully'] = 'Place edited successfully';
+$lang['place_state'] = 'State';
+$lang['place_address'] = 'Address';
+$lang['place_city'] = 'City';
+$lang['place_zip'] = 'Zip';
+
 $lang['request_sent'] = "Request sent";
 /* End of file fx_lang.php */
