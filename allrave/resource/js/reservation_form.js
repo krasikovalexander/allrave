@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#reservation_form").submit(function(event){
         //validations.
         var error_message = $('.error_message p');
-        var fields = ['username', 'phone', 'email', 'pickup_address', 'pickup_city', 'pickup_state', 'drop_address', 'drop_city', 'drop_state', 'passenger','appointment_time', 'terms'];
+        var fields = ['username', 'phone', 'email', 'pickup_address', 'pickup_city', 'pickup_state', 'pickup_zip', 'drop_address', 'drop_city', 'drop_state', 'drop_zip', 'passenger','appointment_time', 'terms'];
         var valid = validation(fields);
 
         if(!valid){//preventDefault if validation failed.

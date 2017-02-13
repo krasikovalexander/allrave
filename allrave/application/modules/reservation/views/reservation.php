@@ -171,7 +171,8 @@
                         'cols' => '50',
                         'placeholder' => 'Type POI or address',
                         'data-type' => 'pickup',
-                        'autocomplete' => 'off'
+                        'autocomplete' => 'off',
+                        'data-name' => 'Pickup Address'
                     )
                 ); ?>
 
@@ -199,7 +200,7 @@
                     'pickup_state',
                     $pickup_option,
                     '0',
-                    'id = "pickup_state" class = "statearea"'
+                    'id = "pickup_state" class = "statearea" data-name = "Pickup State"'
                 ); ?>
 
                 <?php echo form_input(
@@ -222,7 +223,8 @@
                         'cols' => '50',
                         'placeholder' => 'Type POI or address',
                         'data-type' => 'drop',
-                        'autocomplete' => 'off'
+                        'autocomplete' => 'off',
+                        'data-name' => 'Drop off address'
                     )
                 ); ?>
 
@@ -246,7 +248,7 @@
                     'NE' => 'NE',
                     'WI' => 'WI'
                 ); ?>
-                <?php echo form_dropdown('drop_state', $drop_option, '0', 'id = "drop_state" class = "statearea"'); ?>
+                <?php echo form_dropdown('drop_state', $drop_option, '0', 'id = "drop_state" class = "statearea" data-name="Drop State"'); ?>
 
                 <?php echo form_input(
                     array(
