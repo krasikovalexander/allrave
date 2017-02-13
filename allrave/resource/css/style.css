@@ -201,5 +201,6 @@ table tfoot tr th a{color:white}
 .inner_event a {background:#2E3E4E; border: 1px solid white;}
 
 
-
-
+.easy-autocomplete {
+    width: 100%!important;
+}

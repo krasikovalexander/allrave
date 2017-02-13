@@ -32,7 +32,7 @@ class Reservation extends MX_Controller {
         $this->form_validation->set_rules('drop_city', 'Drop City', 'trim|required');
         $this->form_validation->set_rules('drop_state', 'Drop State', 'trim|required');
         $this->form_validation->set_rules('drop_zip', 'Drop Zip', 'trim|integer');
-        $this->form_validation->set_rules('passenger', 'Passenger', 'trim|required|callback_select_validate');
+        $this->form_validation->set_rules('passenger', 'Number of Passengers', 'trim|required');
 
         if($this->form_validation->run() == FALSE) {
             $this->load->view('reservation', $data);

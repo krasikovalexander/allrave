@@ -259,7 +259,7 @@
                     )
                 ); ?>
 
-                <?php echo form_label('Number of Passenger: *'); ?> <?php echo form_error('passenger') ?>
+                <?php echo form_label('Number of Passengers: *'); ?> <?php echo form_error('passenger') ?>
                 <?php $passenger_option = array(
                     '' => 'Number of Passenger',
                     '1' => '1',
@@ -270,7 +270,7 @@
                     '6' => '6 (surcharge will be added)'
                 ); ?>
 
-                <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger"'); ?>
+                <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger" required'); ?>
                 <?php echo form_label('Special Instruction:'); ?> <?php echo form_error('special_instruction') ?>
                 <?php echo form_textarea(array(
                     'id' => 'special_instruction',
