@@ -23,6 +23,7 @@ $(document).ready(function () {
 
     function validation(fields){
         var valid = true;
+        $('.error_message ul li').remove();
         $.each(fields,function(i, val){
             var field =  $("#" + val);
 
