@@ -270,7 +270,7 @@
                     '6' => '6 (surcharge will be added)'
                 ); ?>
 
-                <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger" required'); ?>
+                <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger" required data-name="Number of Passengers"'); ?>
                 <?php echo form_label('Special Instruction:'); ?> <?php echo form_error('special_instruction') ?>
                 <?php echo form_textarea(array(
                     'id' => 'special_instruction',
