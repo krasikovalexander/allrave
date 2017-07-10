@@ -106,11 +106,14 @@
                 <input id="to-long" value="" type="hidden"/>
             </div>
 
+            <div class="col-lg-8 resform"  style='display:none'>
+                <h2>Call us, we are updating to a more simple quality experience.</h2>
+            </div>
 
             <div class="col-lg-8 resform">
                 <h2>Reservation Form</h2>
                 <?php //echo validation_errors(); ?>
-                <?php $attributes = array('id' => 'reservation_form', 'autocomplete'=>"off"); ?>
+                <?php $attributes = array('id' => 'reservation_form', 'autocomplete'=>"on"); ?>
                 <?php echo form_open('reservation', $attributes); ?>
                 <!--<form action="<? /*=base_url()*/ ?>reservation/book_appointment" method="post" id="reservation_form">-->
                 <?php echo form_label('Name: *'); ?> <?php echo form_error('username'); ?>
@@ -171,7 +174,7 @@
                         'cols' => '50',
                         'placeholder' => 'Type POI or address',
                         'data-type' => 'pickup',
-                        'autocomplete' => 'off',
+                        'autocomplete' => 'on',
                         'data-name' => 'Pickup Address'
                     )
                 ); ?>
@@ -183,7 +186,8 @@
                         'required' => 'required',
                         'placeholder' => 'City',
                         'class' => 'cityarea',
-                        'data-name' => 'Pickup City'
+                        'data-name' => 'Pickup City',
+                        'autocomplete' => 'on',
                     )
                 ); ?>
                 <?php $pickup_option = array(
@@ -200,7 +204,7 @@
                     'pickup_state',
                     $pickup_option,
                     '0',
-                    'id = "pickup_state" class = "statearea" data-name = "Pickup State"'
+                    'id = "pickup_state" class = "statearea" data-name = "Pickup State" autocomplete="on"'
                 ); ?>
 
                 <?php echo form_input(
@@ -210,7 +214,8 @@
                         //'required' => 'required',
                         'placeholder' => 'Zip Code',
                         'class' => 'ziparea',
-                        'data-name' => 'Pickup Zip'
+                        'data-name' => 'Pickup Zip',
+                        'autocomplete' => 'on',
                     )
                 ); ?>
 
@@ -223,7 +228,7 @@
                         'cols' => '50',
                         'placeholder' => 'Type POI or address',
                         'data-type' => 'drop',
-                        'autocomplete' => 'off',
+                        'autocomplete' => 'on',
                         'data-name' => 'Drop off address'
                     )
                 ); ?>
@@ -235,7 +240,8 @@
                         'required' => 'required',
                         'placeholder' => 'City',
                         'class' => 'cityarea',
-                        'data-name' => 'Drop City'
+                        'data-name' => 'Drop City',
+                        'autocomplete' => 'on',
                     )
                 ); ?>
                 <?php $drop_option = array(
@@ -257,7 +263,8 @@
                         //'required' => 'required',
                         'placeholder' => 'Zip Code',
                         'class' => 'ziparea',
-                        'data-name' => 'Drop Zip'
+                        'data-name' => 'Drop Zip',
+                        'autocomplete' => 'on',
                     )
                 ); ?>
 
