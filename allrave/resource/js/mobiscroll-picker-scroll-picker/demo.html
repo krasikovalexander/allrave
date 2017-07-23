@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="description" content="Mobiscroll is a scroller style date/time picker optimized for touch devices such as iPhone, iPad, Android, to easily enter date and/or time. It's easily customizable and comes with very nice pre-defined themes: iOS, Android, Sense UI, Default."/>
+    <meta name="keywords" content="jQuery, JavaScript, datepicker, timepicker, touchscreen, Webkit, android, iPhone, iPad, webapps, GalaxyTab, dropdown, mobile, wheel, senseui, wheel, barrel, scroller-style, clickpick"/>
+
+    <title>Mobiscroll</title>
+
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+
+    <script src="mobiscroll.js" type="text/javascript"></script>
+
+    <link href="mobiscroll.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        body {
+            font-family: arial, verdana, sans-serif;
+            /* font-size: 12px; */
+        }
+        .dww img {
+            width: 30px;
+            height: 30px;
+            margin: 5px 10px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Date mobiscroll-picker - use common functions
+            init_datepicker('#pdate');
+            // Time
+            init_timepicker('#ptime');
+            // Datetime
+            init_datetimepicker('#pdatetime');
+
+            // Date with external button
+            $('#date1').scroller();
+            // Time
+            $('#date2').scroller({ preset: 'time' });
+            // Datetime
+            $('#date3').scroller({ preset: 'datetime' });
+
+            var group = {};
+            var wheels = [group];
+            for (var i = 1; i < 4; i++) {
+                var wheel = {};
+                for (var j = 0; j < 100; j++) {
+                    wheel[j] = '<img src="img/fruit-' + (j % 5 + 1) + '.png" />'
+                }
+                group['Fruit ' + i] = wheel;
+            }
+
+            $('#custom').scroller({
+                wheels: wheels
+            });
+
+            $('#theme, #mode').change(function() {
+                var t = $('#theme').val();
+                var m = $('#mode').val();
+                $('#date1').scroller('destroy').scroller({ theme: t, mode: m });
+                $('#date2').scroller('destroy').scroller({ preset: 'time', theme: t, mode: m });
+                $('#date3').scroller('destroy').scroller({ preset: 'datetime', theme: t, mode: m });
+                $('#custom').scroller('destroy').scroller({ wheels: wheels, theme: t, mode: m });
+            });
+        });
+
+    /* common functions: */
+
+    //function show_picker(id, d) {
+    //  $(id).scroller('show');
+    //}
+
+    function init_datepicker(id) {
+      $(id).scroller({ dateFormat: "dd-mm-yy", dateOrder: "ddmmyy" });
+    }
+
+    function init_timepicker(id) {
+      $(id).scroller({ preset: 'time', timeFormat: 'H:ii', ampm: true, stepMinute: 5 });
+    }
+
+    function init_datetimepicker(id) {
+      $(id).scroller({ preset: 'datetime', dateFormat: "dd-mm-yy", timeFormat: 'H:ii', ampm: false, dateOrder: "ddmmyy" });
+    }
+
+    function show_datepicker(id, d, cb) {
+      var mycb = function() {
+        var d2 = $(id).scroller('getDate');
+        $(id).unbind('change', mycb);
+        if (!!cb) cb(d2);
+      };
+
+      $(id).bind('change', mycb);
+
+      var yr = d.getFullYear();
+      var mo = d.getMonth() + 1;
+      var da = d.getDate();
+      $(id).attr("value", (da < 10 ? "0" : "") + da + (mo < 10 ? "-0" : "-") + mo  + '-' + yr)
+      $(id).scroller('show');
+    }
+
+    function show_timepicker(id, d, cb) {
+      var mycb = function() {
+        var d2 = $(id).scroller('getDate');
+        $(id).unbind('change', mycb);
+        if (!!cb) cb(d2);
+      };
+
+      $(id).bind('change', mycb);
+
+      var hr = d.getHours();
+      var min = d.getMinutes();
+      $(id).attr("value", "" + hr + ":" +  (min < 10 ? "0" : "") + min);
+      $(id).scroller('show');
+    }
+
+    function show_datetimepicker(id, d, cb) {
+      var mycb = function() {
+        var d2 = $(id).scroller('getDate');
+        $(id).unbind('change', mycb);
+        if (!!cb) cb(d2);
+      };
+
+      $(id).bind('change', mycb);
+
+      var yr = d.getFullYear();
+      var mo = d.getMonth() + 1;
+      var da = d.getDate();
+      var hr = d.getHours();
+      var min = d.getMinutes();
+      $(id).attr("value", (da < 10 ? "0" : "") + da + (mo < 10 ? "-0" : "-") + mo  + '-' + yr +
+        " " + hr + ":" +  (min < 10 ? "0" : "") + min);
+      $(id).scroller('show');
+    }
+
+    /* window functions: */
+
+    var mydate = new Date(2012, 4-1, 9);
+
+    var mytime = new Date();
+    mytime.setHours(9);
+    mytime.setMinutes(5);
+
+    var mydatetime = new Date(2012, 4 - 1, 9);
+    mydatetime.setHours(9);
+    mydatetime.setMinutes(5);
+
+    function mydatepicker() {
+      show_datepicker('#pdate', mydate, function(d) {
+        mydate = d;
+        var yr = d.getFullYear();
+        var mo = d.getMonth() + 1;
+        var da = d.getDate();
+        $("#adate").html( (da < 10 ? "0" : "") + da + (mo < 10 ? "-0" : "-") + mo  + '-' + yr);
+      });
+    }
+
+    function mytimepicker() {
+      show_timepicker('#ptime', mytime, function(d) {
+        mytime = d;
+        var hr = d.getHours();
+        var min = d.getMinutes();
+        $("#atime").html("" + hr + ":" +  (min < 10 ? "0" : "") + min);
+      });
+    }
+
+    function mydatetimepicker() {
+      show_datetimepicker('#pdatetime', mydatetime, function(d) {
+        mydatetime = d;
+        var yr = d.getFullYear();
+        var mo = d.getMonth() + 1;
+        var da = d.getDate();
+        var hr = d.getHours();
+        var min = d.getMinutes();
+        $("#adatetime").html( (da < 10 ? "0" : "") + da + (mo < 10 ? "-0" : "-") + mo  + '-' + yr + " " + hr + ":" +  (min < 10 ? "0" : "") + min);
+      });
+    }
+
+    </script>
+</head>
+
+<body>
+
+    <div data-role="page" data-theme="b" id="picker-demo">
+        <div data-role="header" data-theme="a">
+            <h1>Picker demo</h1>
+            <a href="#demo-home" class="ui-btn-right" data-icon="arrow-r" data-theme="b">Main demo</a>
+        </div>
+
+        <div data-role="content" data-theme="d">
+            <label for="apdate">Pick a date</label>
+            <a id="apdate" href="#" data-role="button" data-icon="grid" data-iconpos="right"
+                onclick="mydatepicker()"><div id="adate">09-04-2012</div></a>
+            <label for="aptime">Pick a time</label>
+            <a id="aptime" href="#" data-role="button" data-icon="grid" data-iconpos="right"
+                onclick="mytimepicker()"><div id="atime">9:05</div></a>
+            <label for="apdatetime">Pick a date and time</label>
+            <a id="apdatetime" href="#" data-role="button" data-icon="grid" data-iconpos="right"
+                onclick="mydatetimepicker()"><div id="adatetime">09-04-2012 9:05</div></a>
+            <a href="#demo-hidden" data-role="button" data-icon="arrow-r" data-iconpos="right">Hidden fields</a>
+        </div>
+    </div>
+
+    <div data-role="page" data-theme="b" id="demo-home">
+        <div data-role="header" data-theme="a">
+            <h1>Mobiscroll</h1>
+        </div>
+
+        <div data-role="content" data-theme="d">
+            <form id="testform">
+                <div data-role="fieldcontain">
+                    <label for="theme">Theme</label>
+                    <select name="theme" id="theme" data-native-menu="false">
+                        <option value="default">Default</option>
+                        <option value="android-ics">Android ICS (New)</option>
+                        <option value="android-ics light">Android ICS Light (New)</option>
+                        <option value="android">Android</option>
+                        <option value="sense-ui">Sense UI</option>
+                        <option value="ios">iOS</option>
+                    </select>
+                </div>
+
+                <div data-role="fieldcontain">
+                    <label for="mode">Mode</label>
+                    <select name="mode" id="mode" data-native-menu="false">
+                        <option value="scroller">Scroller</option>
+                        <option value="clickpick">Clickpick</option>
+                        <option value="mixed">Mixed (New)</option>
+                    </select>
+                </div>
+
+                <div data-role="fieldcontain">
+                    <label for="date1">Date</label>
+                    <input type="text" name="date1" id="date1" class="mobiscroll" />
+                </div>
+
+                <div data-role="fieldcontain">
+                    <label for="date2">Time</label>
+                    <input type="text" name="date2" id="date2" class="mobiscroll" readonly="readonly" value="11:23 AM" />
+                </div>
+
+                <div data-role="fieldcontain">
+                    <label for="date3">Datetime</label>
+                    <input type="text" name="date3" id="date3" class="mobiscroll" />
+                </div>
+
+                <div data-role="fieldcontain">
+                    <label for="custom">Custom (Fruits :D)</label>
+                    <input type="text" name="custom" id="custom" class="mobiscroll" value="1 2 3" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div data-role="page" data-theme="b" id="demo-hidden">
+        <div data-role="content" data-theme="d">
+          <input type="text" name="pdate" id="pdate" class="mobiscroll" />
+          <input type="text" name="ptime" id="ptime" class="mobiscroll" />
+          <input type="text" name="pdatetime" id="pdatetime" class="mobiscroll" />
+        </div>
+    </div>
+
+</body>
+</html>

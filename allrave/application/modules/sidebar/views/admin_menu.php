@@ -47,6 +47,10 @@
                 <span><?=lang('places')?> </span> </a> 
               </li>
 
+              <li class="<?php if($page == lang('airlines')){echo  "active"; }?>"> <a href="<?=base_url()?>flights/airlines/manage" > <i class="fa fa-map-marker icon"> <b class="bg-success"></b> </i>
+                <span><?=lang('airlines')?> </span> </a> 
+              </li>
+
               </ul> </nav>
             </div>
           </section>

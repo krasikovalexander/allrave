@@ -9,7 +9,7 @@
     <link href="<?= base_url() ?>resource/css/menu_styles.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.1/basic/jquery.qtip.min.css" type="text/css" rel="stylesheet" media="all">
     <!--web-font-->
-	<link href='https://fonts.googleapis.com/css?family=Federo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Federo' rel='stylesheet' type='text/css'>
     <!--//web-font-->
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,6 +33,19 @@
     <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.min.css" rel="stylesheet">
     <link href="<?= base_url() ?>resource/js/easyautocomplete/easy-autocomplete.themes.min.css" rel="stylesheet">
     <script type="text/javascript" src="<?= base_url() ?>resource/js/easyautocomplete/jquery.easy-autocomplete.min.js"></script>
+    
+    <link rel="stylesheet" href="<?=base_url()?>resource/js/select2-4.0.3/css/select2.min.css" type="text/css"/>
+    <script src="<?=base_url()?>resource/js/select2-4.0.3/js/select2.min.js" cache="false"></script>
+    <!--
+    <link rel="stylesheet" href="<?=base_url()?>/resource/js/bootstrap-timepicker/css/bootstrap-timepicker.css" type="text/css">
+    <script type="text/javascript" src="<?=base_url()?>/resource/js/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="<?= base_url() ?>resource/js/jquery-clickout.min.js"></script>
+-->
+    <link rel="stylesheet" href="<?=base_url()?>resource/js/mobiscroll-picker-scroll-picker/mobiscroll.css" type="text/css">
+    <script type="text/javascript" src="<?=base_url()?>resource/js/mobiscroll-picker-scroll-picker/mobiscroll.js"></script>
+
+    <link rel="stylesheet" href="<?=base_url()?>/resource/js/image-picker/image-picker.css" type="text/css">
+    <script type="text/javascript" src="<?=base_url()?>/resource/js/image-picker/image-picker.js"></script>
 
 </head>
 
@@ -62,7 +75,7 @@
                 <li><a href="<?php echo base_url('../our-services')?>"><span>Services</span></a></li>
                 <li><a href="<?php echo base_url('../rave-transportation-gallery')?>"><span>Photo Gallery</span></a></li>
                 <li class="last active"><a href="<?php echo base_url()?>reservation"><span>Request an appointment</span></a></li>
-		<li><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
+        <li><a href="<?php echo base_url()?>review/view_reviews"><span>Reviews</span></a></li>
             </ul>
         </div>
     </div>
@@ -112,6 +125,7 @@
 
             <div class="col-lg-8 resform">
                 <h2>Reservation Form</h2>
+
                 <?php //echo validation_errors(); ?>
                 <?php $attributes = array('id' => 'reservation_form', 'autocomplete'=>"on"); ?>
                 <?php echo form_open('reservation', $attributes); ?>
@@ -152,134 +166,89 @@
                     array('data-name' => 'Appointment Time','id' => 'appointment_time','required' => 'required', 'name' => 'appointment_time', 'readonly' => 'readonly','placeholder' => 'Appointment Time')
                 ) ?>
 -->
+                <div class="flight-area">
                 <?php form_label('Flight Number: '); ?>
-                <label>Flight Number:</label>
-                <?php echo form_input(
-                    array(
-                        'id' => 'flightnumber',
-                        'name' => 'flightnumber',
-                        'placeholder' => 'Flight Number'
-                    )
-                ); ?>
-
+                <label>Flight:</label>
+                <?php 
+                if (!count($airlines)) {
+                    echo form_input(
+                        array(
+                            'id' => 'flightnumber',
+                            'name' => 'flightnumber',
+                            'placeholder' => 'Flight Number'
+                        )
+                    ); 
+                } else {
+                    echo "<select name='airline' id='airlines'>
+                    <option value=''>Select airline</option>";
+                    foreach ($airlines as $airline) {
+                        echo "<option data-img-src='".base_url()."resource/airline/$airline->logo' value='{$airline->id}'>{$airline->name}</option>";
+                    }
+                    echo "</select>";
+                    foreach ($airlines as $airline) {
+                        echo "<select name='flightnumber-{$airline->id}' class='flights' id='flights-of-{$airline->id}'><option value=''>Select flight</option>";
+                    
+                        if (count($airline->flights)) {
+                            foreach ($airline->flights as $flight) {
+                                echo "<option data-path=\"$flight->path\" value=\"$flight->id\">$flight->path To Quad Cities MLI</option>";
+                            }
+                        }
+                        echo "</select>";
+                    }
+                    
+                }
+                ?>
+                </div>
+                <div class="flight-container">
                 <?php echo form_label('Arrival Time:'); ?>
-                <?php echo form_input(array('id' => 'usr_time', 'name' => 'usr_time', 'value' => '','placeholder' => 'Enter Arrival time')); ?>
+                <div class='flight'>
+                    <div class="from">
+                        <div class="code">ORD</div>
+                        <div class="city">Chicago</div>
+                    </div>
+                    <div class="arrow">
+                        <img src="<?=base_url()?>resource/images/plane.png">
+                        <div class="line"></div>
+                    </div>
+                    <div class="to">
+                        <div class="code">MLI</div>
+                        <div class="city">Moline</div>
+                    </div>
 
+                </div>
+                                    <?php echo form_input(array('id' => 'usr_time', 'name' => 'usr_time', 'readonly'=>true ,'value' => '','placeholder' => 'Enter Arrival time')); ?>
+                </div>
                 <?php echo form_label('Pickup Address: *'); ?> <?php form_error('pickup_address'); ?>
-                <?php echo form_textarea(
+                <?php echo form_input(
                     array(
                         'id' => 'pickup_address',
                         'name' => 'pickup_address',
-                        'rows' => '1',
-                        'cols' => '50',
                         'placeholder' => 'Type POI or address',
-                        'data-type' => 'pickup',
-                        'autocomplete' => 'on',
-                        'data-name' => 'Pickup Address'
+                        'autocomplete' => 'on'
                     )
                 ); ?>
 
-                <?php echo form_input(
-                    array(
-                        'id' => 'pickup_city',
-                        'name' => 'pickup_city',
-                        'required' => 'required',
-                        'placeholder' => 'City',
-                        'class' => 'cityarea',
-                        'data-name' => 'Pickup City',
-                        'autocomplete' => 'on',
-                    )
-                ); ?>
-                <?php $pickup_option = array(
-                    '0' => 'State',
-                    'IA' => 'IA',
-                    'IL' => 'IL',
-                    'MI' => 'MI',
-                    'MN' => 'MN',
-                    'MO' => 'MO',
-                    'NE' => 'NE',
-                    'WI' => 'WI'
-                ); ?>
-                <?php echo form_dropdown(
-                    'pickup_state',
-                    $pickup_option,
-                    '0',
-                    'id = "pickup_state" class = "statearea" data-name = "Pickup State" autocomplete="on"'
-                ); ?>
-
-                <?php echo form_input(
-                    array(
-                        'id' => 'pickup_zip',
-                        'name' => 'pickup_zip',
-                        //'required' => 'required',
-                        'placeholder' => 'Zip Code',
-                        'class' => 'ziparea',
-                        'data-name' => 'Pickup Zip',
-                        'autocomplete' => 'on',
-                    )
-                ); ?>
 
                 <?php echo form_label('Drop off address: *'); ?> <?php form_error('drop_address'); ?>
-                <?php echo form_textarea(
+                <?php echo form_input(
                     array(
                         'id' => 'drop_address',
                         'name' => 'drop_address',
-                        'rows' => '1',
-                        'cols' => '50',
                         'placeholder' => 'Type POI or address',
-                        'data-type' => 'drop',
-                        'autocomplete' => 'on',
-                        'data-name' => 'Drop off address'
+                        'autocomplete' => 'on'
                     )
                 ); ?>
 
-                <?php echo form_input(
-                    array(
-                        'id' => 'drop_city',
-                        'name' => 'drop_city',
-                        'required' => 'required',
-                        'placeholder' => 'City',
-                        'class' => 'cityarea',
-                        'data-name' => 'Drop City',
-                        'autocomplete' => 'on',
-                    )
-                ); ?>
-                <?php $drop_option = array(
-                    '0' => 'State',
-                    'IA' => 'IA',
-                    'IL' => 'IL',
-                    'MI' => 'MI',
-                    'MN' => 'MN',
-                    'MO' => 'MO',
-                    'NE' => 'NE',
-                    'WI' => 'WI'
-                ); ?>
-                <?php echo form_dropdown('drop_state', $drop_option, '0', 'id = "drop_state" class = "statearea" data-name="Drop State"'); ?>
+                <?php echo form_label('Select car: *'); ?> <?php echo form_error('passenger') ?>
+                <select name="passenger" id="passenger" class="image-picker show-html" required>
+                    <option value="">Click car image or select from a list</option>
+                    <option data-img-src='<?= base_url() ?>resource/images/lexus.jpg' value='2' text-label="Up to 4 passengers">Lexus RX</option>
+                    <option data-img-src='<?= base_url() ?>resource/images/dmc.png' value='1' text-label="Up to 6 passengers ($10
+extra for local transportation)">Yukon XL</option>
+                    
+                </select>
 
-                <?php echo form_input(
-                    array(
-                        'id' => 'drop_zip',
-                        'name' => 'drop_zip',
-                        //'required' => 'required',
-                        'placeholder' => 'Zip Code',
-                        'class' => 'ziparea',
-                        'data-name' => 'Drop Zip',
-                        'autocomplete' => 'on',
-                    )
-                ); ?>
 
-                <?php echo form_label('Number of Passengers: *'); ?> <?php echo form_error('passenger') ?>
-                <?php $passenger_option = array(
-                    '' => 'Number of Passenger',
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                    '4' => '4',
-                    '5' => '5 (surcharge will be added)',
-                    '6' => '6 (surcharge will be added)'
-                ); ?>
-
-                <?php echo form_dropdown('passenger', $passenger_option, 0, 'id = "passenger" required data-name="Number of Passengers"'); ?>
                 <?php echo form_label('Special Instruction:'); ?> <?php echo form_error('special_instruction') ?>
                 <?php echo form_textarea(array(
                     'id' => 'special_instruction',
@@ -330,209 +299,89 @@
         </div>
     </div>
 
-    <a class="fancybox hide" href="#popup">Click here</a>
-
-    <div id="popup" style="display: none;">
-        <div class="text-center">
-	<div class="col-lg-4" style="float: left">
-							<div style="width: 100%">
-							<div style="float:left;background: red;width: 30px;height: 30px;border: 1px solid black;"></div>
-								<div><p>Red color shows all the booked slots.</p></div>
-							</div>
-							<div class="clear"></div>
-						</div>
-						<div class="col-lg-4" style="float: left">
-							<div style="width: 100%">
-							<div style="float:left;background: #808080;width: 30px;height: 30px;border: 1px solid black;"></div>
-								<div><p>Grey color shows the slots unavailable due to time restrictions. </p></div>
-							</div>
-							<div class="clear"></div>
-						</div>
-						<div class="col-lg-4" style="float: left">
-							<div style="width: 100%">
-							<div style="float:left;background: lightgreen;width: 30px;height: 30px;border: 1px solid black;"></div>
-								<div><p>Green color shows the available slots.</p></div>
-							</div>
-							<div class="clear"></div>
-						</div>
-						<div class="clear"></div>
-        <h2>Please select your appointment time</h2>
-        </div>
-        <ul>
-            <li class="slot" data-time="0000">12:00 am</li>
-            <li class="slot" data-time="0015">12:15 am</li>
-            <li class="slot" data-time="0030">12:30 am</li>
-            <li class="slot" data-time="0045">12:45 am</li>
-            <li class="slot" data-time="0100">1:00 am</li>
-            <li class="slot" data-time="0115">1:15 am</li>
-            <li class="slot" data-time="0130">1:30 am</li>
-            <li class="slot" data-time="0145">1:45 am</li>
-            <li class="slot" data-time="0200">2:00 am</li>
-            <li class="slot" data-time="0215">2:15 am</li>
-            <li class="slot" data-time="0230">2:30 am</li>
-            <li class="slot" data-time="0245">2:45 am</li>
-            <li class="slot" data-time="0300">3:00 am</li>
-            <li class="slot" data-time="0315">3:15 am</li>
-            <li class="slot" data-time="0330">3:30 am</li>
-            <div class="clear"></div>
-            <li class="slot" data-time="0345">3:45 am</li>
-            <li class="slot" data-time="0400">4:00 am</li>
-            <li class="slot" data-time="0415">4:15 am</li>
-            <li class="slot" data-time="0430">4:30 am</li>
-            <li class="slot" data-time="0445">4:45 am</li>
-            <li class="slot" data-time="0500">5:00 am</li>
-            <li class="slot" data-time="0515">5:15 am</li>
-            <li class="slot" data-time="0530">5:30 am</li>
-            <li class="slot" data-time="0545">5:45 am</li>
-            <li class="slot" data-time="0600">6:00 am</li>
-            <li class="slot" data-time="0615">6:15 am</li>
-            <li class="slot" data-time="0630">6:30 am</li>
-            <li class="slot" data-time="0645">6:45 am</li>
-            <li class="slot" data-time="0700">7:00 am</li>
-            <li class="slot" data-time="0715">7:15 am</li>
-            <div class="clear"></div>
-            <li class="slot" data-time="0730">7:30 am</li>
-            <li class="slot" data-time="0745">7:45 am</li>
-            <li class="slot" data-time="0800">8:00 am</li>
-            <li class="slot" data-time="0815">8:15 am</li>
-            <li class="slot" data-time="0830">8:30 am</li>
-            <li class="slot" data-time="0845">8:45 am</li>
-            <li class="slot" data-time="0900">9:00 am</li>
-            <li class="slot" data-time="0915">9:15 am</li>
-            <li class="slot" data-time="0930">9:30 am</li>
-            <li class="slot" data-time="0945">9:45 am</li>
-            <li class="slot" data-time="1000">10:00 am</li>
-            <li class="slot" data-time="1015">10:15 am</li>
-            <li class="slot" data-time="1030">10:30 am</li>
-            <li class="slot" data-time="1045">10:45 am</li>
-            <li class="slot" data-time="1100">11:00 am</li>
-            <div class="clear"></div>
-            <li class="slot" data-time="1115">11:15 am</li>
-            <li class="slot" data-time="1130">11:30 am</li>
-            <li class="slot" data-time="1145">11:45 am</li>
-            <li class="slot" data-time="1200">12:00 pm</li>
-            <li class="slot" data-time="1215">12:15 pm</li>
-            <li class="slot" data-time="1230">12:30 pm</li>
-            <li class="slot" data-time="1245">12:45 pm</li>
-            <li class="slot" data-time="1300">1:00 pm</li>
-            <li class="slot" data-time="1315">1:15 pm</li>
-            <li class="slot" data-time="1330">1:30 pm</li>
-            <li class="slot" data-time="1345">1:45 pm</li>
-            <li class="slot" data-time="1400">2:00 pm</li>
-            <li class="slot" data-time="1415">2:15 pm</li>
-            <li class="slot" data-time="1430">2:30 pm</li>
-            <li class="slot" data-time="1445">2:45 pm</li>
-            <div class="clear"></div>
-            <li class="slot" data-time="1500">3:00 pm</li>
-            <li class="slot" data-time="1515">3:15 pm</li>
-            <li class="slot" data-time="1530">3:30 pm</li>
-            <li class="slot" data-time="1545">3:45 pm</li>
-            <li class="slot" data-time="1600">4:00 pm</li>
-            <li class="slot" data-time="1615">4:15 pm</li>
-            <li class="slot" data-time="1630">4:30 pm</li>
-            <li class="slot" data-time="1645">4:45 pm</li>
-            <li class="slot" data-time="1700">5:00 pm</li>
-            <li class="slot" data-time="1715">5:15 pm</li>
-            <li class="slot" data-time="1730">5:30 pm</li>
-            <li class="slot" data-time="1745">5:45 pm</li>
-            <li class="slot" data-time="1800">6:00 pm</li>
-            <li class="slot" data-time="1815">6:15 pm</li>
-            <li class="slot" data-time="1830">6:30 pm</li>
-            <div class="clear"></div>
-            <li class="slot" data-time="1845">6:45 pm</li>
-            <li class="slot" data-time="1900">7:00 pm</li>
-            <li class="slot" data-time="1915">7:15 pm</li>
-            <li class="slot" data-time="1930">7:30 pm</li>
-            <li class="slot" data-time="1945">7:45 pm</li>
-            <li class="slot" data-time="2000">8:00 pm</li>
-            <li class="slot" data-time="2015">8:15 pm</li>
-            <li class="slot" data-time="2030">8:30 pm</li>
-            <li class="slot" data-time="2045">8:45 pm</li>
-            <li class="slot" data-time="2100">9:00 pm</li>
-            <li class="slot" data-time="2115">9:15 pm</li>
-            <li class="slot" data-time="2130">9:30 pm</li>
-            <li class="slot" data-time="2145">9:45 pm</li>
-            <li class="slot" data-time="2200">10:00 pm</li>
-            <li class="slot" data-time="2215">10:15 pm</li>
-            <div class="clear"></div>
-            <li class="slot" data-time="2230">10:30 pm</li>
-            <li class="slot" data-time="2245">10:45 pm</li>
-            <li class="slot" data-time="2300">11:00 pm</li>
-            <li class="slot" data-time="2315">11:15 pm</li>
-	    <li class="slot" data-time="2330">11:30 pm</li>
-	    <li class="slot" data-time="2345">11:45 pm</li>
-        </ul>
-        <div class="clear"></div>
-    </div>
-    <div>
-        <!--This text box is used to display current cdt time-->
-        <!--It shows cdt time + 12 hours -->
-        <input type="hidden" id="cdt" value="<?php
-        date_default_timezone_set("UTC");
-        $cdt = date("d-m-Y H:i", time() - 60 * 60 * 5);
-        $cdt12 = date("d-m-Y H:i", strtotime($cdt) + 60 * 60 * 12);
-	//$cdt12 = "07-06-2015 08:01";
-        echo $cdt12; ?>">
-	<input type="hidden" id="cdt_current_date" value="<?php
-	date_default_timezone_set("UTC");
-        $cdt = date("d-m-Y h:i", time() - 60 * 60 * 5);
-	//$cdt = "06-06-2015 20:01";
-	echo $cdt; ?>" />
-        <input type="hidden" id="count_vehicles" value="<?php echo $count_vehicles;?>">
-    </div>
-    <!--  //bottom footer  -->
-    <div class="row">
-        <div class="col-lg-12 copyright"> Premium Business WordPress themes | Login</div>
-    </div>
-
 </div>
 <div id="overlay"></div>
 
 <script>
-    var places = <?php echo json_encode($places, JSON_PRETTY_PRINT) ?>;
+    $("#airlines").imagepicker({
+        hide_select: true,
+        show_label: false,
+    }).on('change', function(){
+        $(".flights").hide();
+        $("#flights-of-"+$("#airlines").val()).change().show();
+    });
 
-    var options = {
-        data: places,
-        getValue: function(element) {
-            return element.name+" - "+element.address+", "+element.city+", "+element.state;
-        },
-        list: {
-            match: {
-                enabled: true
-            },
-            onClickEvent: function() {
-                var item = $("#pickup_address").getSelectedItemData();
-                console.log(item);
-                $("#pickup_address").val(item.address);
-                $("#pickup_city").val(item.city);
-                $("#pickup_state").val(item.state);
-                $("#pickup_zip").val(item.zip);
-            }
+
+    $('#usr_time').scroller({ preset: 'time', timeFormat: 'hh:ii A', ampm: true, stepMinute: 5, rows: 3 });
+    /*.timepicker({
+        minuteStep: 5,
+        defaultTime: 'AM',
+        snapToStep: true,
+        showInputs: true,
+        disableFocus: false,
+        modalBackdrop: true,
+        explicitMode: true,
+    }).on('show.timepicker', function(e) {
+        $("#overlay").show();
+    }).on('hide.timepicker', function(e) {
+        $("#overlay").hide();
+    });*/
+
+    $(".flights").on("change", function(){
+        if ($(this).val()) {
+            var parts = $(this).find(":selected").attr("data-path").split(" ");
+            var code = parts.shift();
+
+            var city = parts.join(" ");
+            $('.from .code').html(code);
+            $('.from .city').html(city);
+            $('.flight-container').show();
+            //$('#usr_time').timepicker('showWidget');
+            $('#usr_time').scroller('show');
+        } else {
+            $('.flight-container').hide();
+            //$('#usr_time').timepicker('hideWidget');
+            $('#usr_time').scroller('hide');
         }
-    };
-    $("#pickup_address").easyAutocomplete(options);
+    });
 
-    var dropOptions = {
-        data: places,
-        getValue: function(element) {
-            return element.name+" - "+element.address+", "+element.city+", "+element.state;
-        },
-        list: {
-            match: {
-                enabled: true
-            },
-            onClickEvent: function() {
-                var item = $("#drop_address").getSelectedItemData();
-                $("#drop_address").val(item.address);
-                $("#drop_city").val(item.city);
-                $("#drop_state").val(item.state);
-                $("#drop_zip").val(item.zip);
-            }
-        }
-    };
+    //$(".bootstrap-timepicker-widget, #usr_time, .flights").on('clickout', function(){
+    //    $('#usr_time').timepicker('hideWidget');
+    //});
 
-    $("#drop_address").easyAutocomplete(dropOptions);
+    $("#passenger").imagepicker({
+        hide_select: true,
+        show_label: true,
+    });
 
-</script>
+      var autocompletePickup, autocompleteDropoff;
+
+      function initAutocomplete() {
+        autocompletePickup = new google.maps.places.Autocomplete(
+            document.getElementById('pickup_address'),
+            {});
+        autocompleteDropoff = new google.maps.places.Autocomplete(
+            document.getElementById('drop_address'),
+            {});
+
+        geolocate();
+      }
+     
+      function geolocate() {
+        var geolocation = {
+          lat: 41.527366,
+          lng: -90.520049
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: 50000
+        });
+        autocompletePickup.setBounds(circle.getBounds());
+        autocompleteDropoff.setBounds(circle.getBounds());
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWLS8f_r8eIIcuPgqOULbdwDRDAoHtK5o&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
 </body>
 </html>

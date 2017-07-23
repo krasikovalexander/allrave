@@ -454,7 +454,7 @@ $lang['timeline'] = 'Timeline';
 $lang['timesheets'] = 'Timesheets';
 $lang['time_entered_success'] = 'Time entered successfully';
 $lang['time_entered_failed'] = 'Failed to enter time to the database. Please try again';
-$lang['total'] = 'Total'; 
+$lang['total'] = 'Total';
 $lang['total_earnings'] = 'Total Earnings';
 $lang['total_sales'] = 'Total Sales';
 $lang['total_time'] = 'Total Time';
@@ -662,4 +662,36 @@ $lang['place_city'] = 'City';
 $lang['place_zip'] = 'Zip';
 
 $lang['request_sent'] = "Request sent";
+
+$lang['flights'] = 'Flights';
+$lang['airlines'] = 'Airlines';
+$lang['airline_creation_failed'] = 'Create failed. Ensure you fill all required fields.';
+$lang['airline_deleted_successfully'] = 'Airline deleted successfully';
+$lang['airline_edited_successfully'] = 'Airline edited successfully';
+
+$lang['flight_creation_failed']  = 'Create failed. Ensure you fill all required fields.';
+$lang['flight_edited_successfully'] = 'Flight edited successfully';
+$lang['flight_deleted_successfully'] = 'Flight deleted successfully';
+
+$lang['delete_airline'] = 'Delete airline';
+$lang['delete_airline_warning'] = 'This action will delete all data related to this airline. Proceed?';
+
+$lang['delete_flight'] = 'Delete flight';
+$lang['delete_flight_warning'] = 'This action will delete all data related to this flight. Proceed?';
+
+$lang['edit_airline'] = 'Edit airline';
+$lang['edit_flight'] = 'Edit flight';
+
+$lang['airline_name'] = 'Name';
+$lang['airline_logo'] = 'Logo';
+$lang['airline_active'] = 'Active';
+$lang['flight_active'] = 'Active';
+$lang['flight_path'] = 'Path';
+
+
+$lang['new_airline'] = 'New airline';
+$lang['create_airline'] = 'Create airline';
+
+$lang['new_flight'] = 'New flight';
+$lang['create_flight'] = 'Create flight';
 /* End of file fx_lang.php */

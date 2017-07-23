@@ -1,8 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
-class Reservation extends MX_Controller {
-
-    function __construct()
+class Reservation extends MX_Controller
+{
+    public function __construct()
     {
         parent::__construct();
         $this->load->model('reservation_model');
@@ -12,32 +14,43 @@ class Reservation extends MX_Controller {
         $this->load->helper('email_helper');
     }
 
-    //This is the default method for the reservation page.
-    function index()
+   
+    public function index()
     {
         $data['count_vehicles'] = $this->appmodel->count_vehicles();
         $this->load->model('places/place_model');
+        $this->load->model('flights/airline_model');
+        $this->load->model('flights/flight_model');
         $data['places'] = $this->place_model->places();
+
+        $airlines = $this->airline_model->activeAirlines();
+
+        if (count($airlines)) {
+            foreach($airlines as &$airline) {
+                $airline->flights = $this->flight_model->activeFlights($airline->id);
+            }
+        }
+
+        $data['airlines'] = $airlines;
 
         //include the form validation library.
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('username','Name','trim|required');
-        $this->form_validation->set_rules('phone','Phone','trim|required');//|max_length[10]');
+        $this->form_validation->set_rules('username', 'Name', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Phone', 'trim|required');//|max_length[10]');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('pickup_address', 'Pickup Address:', 'trim|required');
-        $this->form_validation->set_rules('pickup_city', 'Pickup City', 'trim|required');
-        $this->form_validation->set_rules('pickup_state', 'Pickup State', 'trim|required');
+        //$this->form_validation->set_rules('pickup_city', 'Pickup City', 'trim|required');
+        //$this->form_validation->set_rules('pickup_state', 'Pickup State', 'trim|required');
         $this->form_validation->set_rules('pickup_zip', 'Pickup Zip', 'trim|integer');
         $this->form_validation->set_rules('drop_address', 'Drop Address', 'trim|required');
-        $this->form_validation->set_rules('drop_city', 'Drop City', 'trim|required');
-        $this->form_validation->set_rules('drop_state', 'Drop State', 'trim|required');
+        //$this->form_validation->set_rules('drop_city', 'Drop City', 'trim|required');
+        //$this->form_validation->set_rules('drop_state', 'Drop State', 'trim|required');
         $this->form_validation->set_rules('drop_zip', 'Drop Zip', 'trim|integer');
-        $this->form_validation->set_rules('passenger', 'Number of Passengers', 'trim|required');
-
-        if($this->form_validation->run() == FALSE) {
+        $this->form_validation->set_rules('passenger', 'Car', 'trim|required');
+        
+        if ($this->form_validation->run() == false) {
             $this->load->view('reservation', $data);
-        }
-        else{
+        } else {
             $date = $this->input->post('date');
             $fulldate = DateTime::createFromFormat('m-d-Y H:i A', $date);
             $datetime  = $fulldate->format('Y-m-d H:i:s');
@@ -49,18 +62,21 @@ class Reservation extends MX_Controller {
 
             //get the id of user depending upon the email id from user table
             $uid=0;
-            $query = $this->db->get_where('users',array('email' => $this->input->post('email')) );
-            foreach ($query->result() as $row)
-            {
+            $query = $this->db->get_where('users', array('email' => $this->input->post('email')));
+            foreach ($query->result() as $row) {
                 $uid = $row->id;
             }
-            if($uid!=null)
-            {
+            if ($uid!=null) {
                 $user_id=$uid;
-            }
-            else
-            {
+            } else {
                 $user_id=0;
+            }
+
+            $airline = null;
+            $flight = null;
+            if ($this->input->post('airline')) {
+                $airline = $this->airline_model->getById($this->input->post('airline'));
+                $flight = $this->flight_model->getById($this->input->post("flightnumber-".$this->input->post('airline')));
             }
 
             $data = array(
@@ -70,7 +86,7 @@ class Reservation extends MX_Controller {
                 'alternate_phone2' => $this->input->post('alternate_phone2'),
                 'email' => $this->input->post('email'),
                 'date' => $datetime,
-                'flight_number' => $this->input->post('flightnumber'),
+                'flight_number' => $flight ? $airline->name." ".$flight->path : $this->input->post('flightnumber'),
                 'arrival_time' => $this->input->post('usr_time'),
                 'pickup_address' => $this->input->post('pickup_address'),
                 'pickup_city' => $this->input->post('pickup_city'),
@@ -94,27 +110,30 @@ class Reservation extends MX_Controller {
                 $this->reservation_model->subscriber_check($data['email']);     //put the email id in the subscription table
             //}
             $insert_id = $this->reservation_model->form_insert($data);          // put the data in the table
-            if($insert_id){ //if the data has been saved in the database.
+            if ($insert_id) { //if the data has been saved in the database.
 
                 //$data['heading'] = 'Your appointment has not yet been confirmed';
                 //$data['user_subject'] = 'Thank you for your request';
-                $webmaster = $this->appmodel->get_all_records_simple('config',array('config_key' => 'webmaster_email'));
+                $webmaster = $this->appmodel->get_all_records_simple('config', array('config_key' => 'webmaster_email'));
                 $from = $webmaster[0]['value'];
 
                 //send_email($data['user_subject'],$from,$data['email'],$data,'email');
 
                 $data['admin_subject'] = 'The following request has been posted';
                 $data['heading'] = 'The following request has been posted';
-                $admin = $this->appmodel->get_all_records_simple('config',array('config_key' => 'admin_email'));
+                
+                $data['airline'] = $airline;
+                $data['flight'] = $flight;
+
+                $admin = $this->appmodel->get_all_records_simple('config', array('config_key' => 'admin_email'));
                 $to =  $admin[0]['value'];
-                send_email($data['admin_subject'],$from,$to,$data,'request');
+                send_email($data['admin_subject'], $from, $to, $data, 'request');
 
 
                 //$this->_full_slot($date,$time,$insert_id,$data['email']);
                 $this->session->set_flashdata('message', 'Your Request has been received by us, we will contact you shortly. Meanwhile, You can book another ride.');
                 redirect('reservation/thankyou');
-
-            }else{ //if the data could not be saved in the database.
+            } else { //if the data could not be saved in the database.
                 $this->session->set_flashdata('message', 'Your Request could not be saved due to some problem, Kindly try again.');
                 redirect('reservation/thankyou');
             }
@@ -122,15 +141,15 @@ class Reservation extends MX_Controller {
     }
 
     //This method is used to save the reservation form data into the database.
-    function thankyou()
+    public function thankyou()
     {
         $this->load->view('message');
     }
 
-    function select_validate($select_val)
+    public function select_validate($select_val)
     {
-        if($select_val=="Number of Passenger"){
-	        $this->form_validation->set_message('select_validate', 'Please Select The Number Of Passengers.');
+        if ($select_val=="Number of Passenger") {
+            $this->form_validation->set_message('select_validate', 'Please Select The Number Of Passengers.');
             return false;
         } else {
             return true;
@@ -142,14 +161,11 @@ class Reservation extends MX_Controller {
         $date = $this->input->post('date');
         $type = $this->input->post('type');
         $date = $this->_convertDate($date);//convert the date format.
-        if($type == 'reservation')
-        {
-            $slots = $this->appmodel->get_all_records_simple('slot_processing',array('date >=' => $date.' '.'00:00:00', 'date <=' => $date.' '.'23:45:00'));
-        }
-        else
-        {
+        if ($type == 'reservation') {
+            $slots = $this->appmodel->get_all_records_simple('slot_processing', array('date >=' => $date.' '.'00:00:00', 'date <=' => $date.' '.'23:45:00'));
+        } else {
             //$slots = $this->reservation_model->getfullslots($date);
-            $slots = $this->appmodel->get_all_records_simple('reservation',array('date >=' => $date.' '.'00:00:00','date <=' => $date.' '.'23:45:00','status' => 'accepted'));
+            $slots = $this->appmodel->get_all_records_simple('reservation', array('date >=' => $date.' '.'00:00:00','date <=' => $date.' '.'23:45:00','status' => 'accepted'));
         }
 
         echo json_encode($slots);
@@ -163,19 +179,15 @@ class Reservation extends MX_Controller {
         return date('Y-m-d', strtotime($date));
     }
 
-    private function _full_slot($date,$time,$request_id,$email)
+    private function _full_slot($date, $time, $request_id, $email)
     {
-        $full_slot = $this->appmodel->get_all_records_simple('full_slot',array('date' => $date,'time' => $time));
-        if($full_slot)//if fullslot then reject
-        {
+        $full_slot = $this->appmodel->get_all_records_simple('full_slot', array('date' => $date,'time' => $time));
+        if ($full_slot) {//if fullslot then reject
             //set the status to rejected.
-            $this->appmodel->update('reservation',array('status' => 'rejected'),array('id' => $request_id));
+            $this->appmodel->update('reservation', array('status' => 'rejected'), array('id' => $request_id));
             //make an entry in email table.
-            $this->appmodel->insert('schedule_email',array('email' => $email,'type' => 'rejected','reservation_id' => $request_id,'status' => 0,'date' => date('Y-m-d')));
-
-        }
-        else //if not a fullslot then check for padding effect.
-        {
+            $this->appmodel->insert('schedule_email', array('email' => $email,'type' => 'rejected','reservation_id' => $request_id,'status' => 0,'date' => date('Y-m-d')));
+        } else { //if not a fullslot then check for padding effect.
             //add 15 minutes to the time variable and check for the padding effect in slot_processing table.
             //$time15 = date('H:i:s',strtotime("+15minutes", strtotime($time)));
             //$datetime15 = $date.' '.$time15;
@@ -196,65 +208,61 @@ class Reservation extends MX_Controller {
             else
             {*/
                 //accept the request.
-            $admin = $this->appmodel->get_all_records_simple('config',array('config_key' => 'admin_email'));
+            $admin = $this->appmodel->get_all_records_simple('config', array('config_key' => 'admin_email'));
             $admin_email = $admin[0]['value'];
 
-                $this->appmodel->update('reservation',array('status' => 'accepted'),array('id' => $request_id));
-                $this->appmodel->insert('schedule_email',array('email' => $email,'type' => 'accepted','reservation_id' => $request_id,'status' => 0,'date' => date('Y-m-d')));
-                $this->appmodel->insert('schedule_email',array('email' => $admin_email,'type' => 'admin_accepted','reservation_id' => $request_id,'status' => 0,'date' => date('Y-m-d')));
-                $this->appmodel->insert('schedule_email',array('email' => $email,'type' => 'reminder','reservation_id' => $request_id,'status' => 0,'date' => $date));
-                $this->appmodel->insert('schedule_email',array('email' => $admin_email,'type' => 'admin_reminder','reservation_id' => $request_id,'status' => 0,'date' => $date));
+            $this->appmodel->update('reservation', array('status' => 'accepted'), array('id' => $request_id));
+            $this->appmodel->insert('schedule_email', array('email' => $email,'type' => 'accepted','reservation_id' => $request_id,'status' => 0,'date' => date('Y-m-d')));
+            $this->appmodel->insert('schedule_email', array('email' => $admin_email,'type' => 'admin_accepted','reservation_id' => $request_id,'status' => 0,'date' => date('Y-m-d')));
+            $this->appmodel->insert('schedule_email', array('email' => $email,'type' => 'reminder','reservation_id' => $request_id,'status' => 0,'date' => $date));
+            $this->appmodel->insert('schedule_email', array('email' => $admin_email,'type' => 'admin_reminder','reservation_id' => $request_id,'status' => 0,'date' => $date));
 
                 //fill the slot_processing table.
                 $currentDate = strtotime($date.' '.$time);
-                $currentDate_negative = $currentDate;
-                $interval = 0;
-                for($i = 0; $i< 8; $i++)
-                {
-                    $futureDate = $currentDate+(60*$interval);
-                    $new_date = date("Y-m-d H:i:s", $futureDate);
-                    $data = array('date' => $new_date,'reservation_id' => $request_id);
-                    $this->appmodel->insert('slot_processing',$data);
-                    $interval +=  15;
-                }
-                $interval = -15;
-                for($i = 8; $i> 0; $i--)
-                {
-                    $futureDate = $currentDate_negative+(60*$interval);
-                    $new_date = date("Y-m-d H:i:s", $futureDate);
-                    $data = array('date' => $new_date,'reservation_id' => $request_id);
-                    $this->appmodel->insert('slot_processing',$data);
-                    $interval -=  15;
-                }
+            $currentDate_negative = $currentDate;
+            $interval = 0;
+            for ($i = 0; $i< 8; $i++) {
+                $futureDate = $currentDate+(60*$interval);
+                $new_date = date("Y-m-d H:i:s", $futureDate);
+                $data = array('date' => $new_date,'reservation_id' => $request_id);
+                $this->appmodel->insert('slot_processing', $data);
+                $interval +=  15;
+            }
+            $interval = -15;
+            for ($i = 8; $i> 0; $i--) {
+                $futureDate = $currentDate_negative+(60*$interval);
+                $new_date = date("Y-m-d H:i:s", $futureDate);
+                $data = array('date' => $new_date,'reservation_id' => $request_id);
+                $this->appmodel->insert('slot_processing', $data);
+                $interval -=  15;
+            }
 
                 //check if full slot has happened.
-                $full_slot = $this->appmodel->get_all_records_simple('reservation',array('date' => $date.' '.$time, 'status' => 'accepted'));
-                $full_slot_count = ($full_slot) ? count($full_slot) : 0;
+                $full_slot = $this->appmodel->get_all_records_simple('reservation', array('date' => $date.' '.$time, 'status' => 'accepted'));
+            $full_slot_count = ($full_slot) ? count($full_slot) : 0;
 
-                if($full_slot_count == $count_vehicles)
-                {
-                    //if the full slot has happened then insert it in the full slot table.
-                    $this->appmodel->insert('full_slot',array('date' => $date, 'time' => $time));
-                }
+            if ($full_slot_count == $count_vehicles) {
+                //if the full slot has happened then insert it in the full slot table.
+                    $this->appmodel->insert('full_slot', array('date' => $date, 'time' => $time));
+            }
             //}
         }
     }
 
-    function alpha_space($str)
+    public function alpha_space($str)
     {
-        return ( ! preg_match("^[a-zA-Z][a-zA-Z\\s]+$", $str)) ? FALSE : TRUE;
+        return (! preg_match("^[a-zA-Z][a-zA-Z\\s]+$", $str)) ? false : true;
     }
 
-    function get_distance_rate()
+    public function get_distance_rate()
     {
         $distance = $this->input->post('distance');
-        $distance_rate = $this->appmodel->get_all_records_simple('distance_rate',array('bottom <' => $distance, 'top >=' => $distance));
+        $distance_rate = $this->appmodel->get_all_records_simple('distance_rate', array('bottom <' => $distance, 'top >=' => $distance));
         echo json_encode($distance_rate[0]['price']); //return the price.
         exit;
-
     }
 
-    function reject()
+    public function reject()
     {
         //if the appointment is cancelled then.
         //set the status to rejected in the reservation table.
@@ -262,31 +270,28 @@ class Reservation extends MX_Controller {
         //delete the full slot.
 
         $reservation_id = $this->uri->segment(3);
-        $data = $this->appmodel->get_all_records_simple('reservation',array('id' => $reservation_id));
+        $data = $this->appmodel->get_all_records_simple('reservation', array('id' => $reservation_id));
         $type = $data[0]['status'];
-        $this->appmodel->update('reservation',array('status' => 'rejected'),array('id' => $reservation_id));
+        $this->appmodel->update('reservation', array('status' => 'rejected'), array('id' => $reservation_id));
 
-        $data = $this->appmodel->get_all_records_simple('reservation',array('id' => $reservation_id));
+        $data = $this->appmodel->get_all_records_simple('reservation', array('id' => $reservation_id));
         $cdt = date("Y-m-d H:i:s", time() - 60 * 60 * 5);
         $date = $data[0]['date'];
-        $admin = $this->appmodel->get_all_records_simple('config',array('config_key' => 'admin_email'));
+        $admin = $this->appmodel->get_all_records_simple('config', array('config_key' => 'admin_email'));
         $admin_email = $admin[0]['value'];
 
-        if(strtotime($date) - strtotime($cdt) > 21600 && $type == 'accepted') //if there is difference of at least 6 hours.
-        {
-            $this->appmodel->delete('slot_processing',array('reservation_id' => $reservation_id));
-            $this->appmodel->delete('full_slot',array('date' => date('Y-m-d', strtotime($date)), 'time' => date('H:i:s', strtotime($date))));
-            $this->appmodel->insert('schedule_email',array('email' => $data[0]['email'],'type' => 'cancelled','reservation_id' => $reservation_id,
+        if (strtotime($date) - strtotime($cdt) > 21600 && $type == 'accepted') { //if there is difference of at least 6 hours.
+            $this->appmodel->delete('slot_processing', array('reservation_id' => $reservation_id));
+            $this->appmodel->delete('full_slot', array('date' => date('Y-m-d', strtotime($date)), 'time' => date('H:i:s', strtotime($date))));
+            $this->appmodel->insert('schedule_email', array('email' => $data[0]['email'],'type' => 'cancelled','reservation_id' => $reservation_id,
                 'status' => 0, 'date' => date('Y-m-d')));
-            $this->appmodel->insert('schedule_email',array('email' => $admin_email,'type' => 'admin_cancelled','reservation_id' => $reservation_id,
+            $this->appmodel->insert('schedule_email', array('email' => $admin_email,'type' => 'admin_cancelled','reservation_id' => $reservation_id,
                 'status' => 0, 'date' => date('Y-m-d')));
-            $this->appmodel->delete('schedule_email',array('reservation_id' => $reservation_id,'type' => 'reminder'));
-            $this->appmodel->delete('schedule_email',array('reservation_id' => $reservation_id,'type' => 'admin_reminder'));
+            $this->appmodel->delete('schedule_email', array('reservation_id' => $reservation_id,'type' => 'reminder'));
+            $this->appmodel->delete('schedule_email', array('reservation_id' => $reservation_id,'type' => 'admin_reminder'));
            //set the message that the ride has been cancelled.
             $this->session->set_flashdata('message', 'Your booking has been cancelled');
-        }
-        else //if the difference is less than 6 hours
-        {
+        } else { //if the difference is less than 6 hours
             //set the message that the ride cannot be cancelled.
             $this->session->set_flashdata('message', 'Your booking cannot be cancelled now, Contact us to cancel your booking');
         }
@@ -295,24 +300,26 @@ class Reservation extends MX_Controller {
 
     //code to find the distence between two zip codes
         // This function returns Longitude & Latitude from zip code.
-        function getLnt($zip){
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=
+        public function getLnt($zip)
+        {
+            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=
         ".urlencode($zip)."&sensor=false";
-        $result_string = file_get_contents($url);
-        $result = json_decode($result_string, true);
-        $result1[]=$result['results'][0];
-        $result2[]=$result1[0]['geometry'];
-        $result3[]=$result2[0]['location'];
-        return $result3[0];
+            $result_string = file_get_contents($url);
+            $result = json_decode($result_string, true);
+            $result1[]=$result['results'][0];
+            $result2[]=$result1[0]['geometry'];
+            $result3[]=$result2[0]['location'];
+            return $result3[0];
         }
 
-        function getDistance($zip1, $zip2){
+    public function getDistance($zip1, $zip2)
+    {
         $first_lat = $this->getLnt($zip1);
         $next_lat = $this->getLnt($zip2);
         $lat1 = $first_lat['lat'];
         $lon1 = $first_lat['lng'];
         $lat2 = $next_lat['lat'];
-        $lon2 = $next_lat['lng']; 
+        $lon2 = $next_lat['lng'];
         $theta=$lon1-$lon2;
         $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
         cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
@@ -330,25 +337,8 @@ class Reservation extends MX_Controller {
         //}
         //else{
         return $miles." miles";
-        }
+    }
     //end of code to find the distence between two zip codes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 /* End of file reservation.php */
