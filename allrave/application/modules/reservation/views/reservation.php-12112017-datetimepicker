@@ -46,14 +46,6 @@
 
     <link rel="stylesheet" href="<?=base_url()?>/resource/js/image-picker/image-picker.css" type="text/css">
     <script type="text/javascript" src="<?=base_url()?>/resource/js/image-picker/image-picker.js"></script>
-    
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rome/2.1.22/rome.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
-    <link href="<?=base_url()?>resource/js/material-datetime-picker.css" rel="stylesheet">
-    <script src="<?=base_url()?>resource/js/material-datetime-picker.js" charset="utf-8"></script>
 
 </head>
 
@@ -317,18 +309,6 @@ extra for local transportation)">Yukon XL</option>
     }).on('change', function(){
         $(".flights").hide();
         $("#flights-of-"+$("#airlines").val()).change().show();
-    });
-
-    var pickupPicker = new MaterialDatetimePicker;
-    pickupPicker.on('submit', function (val) {
-      $('#date').val(moment(val).format("DD/MM/YYYY hh:mm A"));
-    });
-
-    document.querySelector('#date').addEventListener('click', function () {
-      $('#date').blur();
-      var timeString = $('#date').val();
-      var time = moment(timeString, "DD/MM/YYYY hh:mm A").isValid() ? moment(timeString, "DD/MM/YYYY hh:mm A") : moment();
-      return pickupPicker.open('Date/time of pick up') || pickupPicker.set(time);
     });
 
 

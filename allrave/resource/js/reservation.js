@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#date").appendDtpicker({
+    /*$("#date").appendDtpicker({
         "dateOnly": false,
         //"dateFormat": "DD-MM-YYYY",
         "dateFormat": "MM-DD-YYYY HH:mm TT",
@@ -15,7 +15,7 @@ $(document).ready(function () {
             }
             return true;
         }
-    });
+    });*/
 
 
     $(document).on('click','#get_fare', function(){

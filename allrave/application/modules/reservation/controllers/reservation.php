@@ -140,6 +140,132 @@ class Reservation extends MX_Controller
         }
     }
 
+
+    public function dev()
+    {
+        $data['count_vehicles'] = $this->appmodel->count_vehicles();
+        $this->load->model('places/place_model');
+        $this->load->model('flights/airline_model');
+        $this->load->model('flights/flight_model');
+        $data['places'] = $this->place_model->places();
+
+        $airlines = $this->airline_model->activeAirlines();
+
+        if (count($airlines)) {
+            foreach($airlines as &$airline) {
+                $airline->flights = $this->flight_model->activeFlights($airline->id);
+            }
+        }
+
+        $data['airlines'] = $airlines;
+
+        //include the form validation library.
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('username', 'Name', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Phone', 'trim|required');//|max_length[10]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('pickup_address', 'Pickup Address:', 'trim|required');
+        //$this->form_validation->set_rules('pickup_city', 'Pickup City', 'trim|required');
+        //$this->form_validation->set_rules('pickup_state', 'Pickup State', 'trim|required');
+        $this->form_validation->set_rules('pickup_zip', 'Pickup Zip', 'trim|integer');
+        $this->form_validation->set_rules('drop_address', 'Drop Address', 'trim|required');
+        //$this->form_validation->set_rules('drop_city', 'Drop City', 'trim|required');
+        //$this->form_validation->set_rules('drop_state', 'Drop State', 'trim|required');
+        $this->form_validation->set_rules('drop_zip', 'Drop Zip', 'trim|integer');
+        $this->form_validation->set_rules('passenger', 'Car', 'trim|required');
+        
+        if ($this->form_validation->run() == false) {
+            $this->load->view('reservation_dev', $data);
+        } else {
+            $date = $this->input->post('date');
+            $fulldate = DateTime::createFromFormat('m-d-Y H:i A', $date);
+            $datetime  = $fulldate->format('Y-m-d H:i:s');
+
+            $date = $fulldate->format('Y-m-d');
+            $time = $fulldate->format('H:i:s');
+
+            $booking_time = date("Y-m-d H:i:s", time() - 60 * 60 * 5);//current cdt time.
+
+            //get the id of user depending upon the email id from user table
+            $uid=0;
+            $query = $this->db->get_where('users', array('email' => $this->input->post('email')));
+            foreach ($query->result() as $row) {
+                $uid = $row->id;
+            }
+            if ($uid!=null) {
+                $user_id=$uid;
+            } else {
+                $user_id=0;
+            }
+
+            $airline = null;
+            $flight = null;
+            if ($this->input->post('airline')) {
+                $airline = $this->airline_model->getById($this->input->post('airline'));
+                $flight = $this->flight_model->getById($this->input->post("flightnumber-".$this->input->post('airline')));
+            }
+
+            $data = array(
+                'name' => $this->input->post('username'),
+                'phone' => $this->input->post('phone'),
+                'alternate_phone1' => $this->input->post('alternate_phone1'),
+                'alternate_phone2' => $this->input->post('alternate_phone2'),
+                'email' => $this->input->post('email'),
+                'date' => $datetime,
+                'flight_number' => $flight ? $airline->name." ".$flight->path : $this->input->post('flightnumber'),
+                'arrival_time' => $this->input->post('usr_time'),
+                'pickup_address' => $this->input->post('pickup_address'),
+                'pickup_city' => $this->input->post('pickup_city'),
+                'pickup_state' => $this->input->post('pickup_state'),
+                'pickup_zip' => $this->input->post('pickup_zip'),
+                'dropoff_address' => $this->input->post('drop_address'),
+                'dropoff_city' => $this->input->post('drop_city'),
+                'dropoff_state' => $this->input->post('drop_state'),
+                'dropoff_zip' => $this->input->post('drop_zip'),
+                'number_of_passengers' => $this->input->post('passenger'),
+                'booking_time' => $booking_time,
+                'special_instruction' => $this->input->post('special_instruction'),
+                'uid' => $user_id
+
+            );
+
+            //$subscribe = ($this->input->post('enroll'));
+            //enter the user to the subscriber table.
+            //if($subscribe){
+                //make changes here.
+                $this->reservation_model->subscriber_check($data['email']);     //put the email id in the subscription table
+            //}
+            $insert_id = $this->reservation_model->form_insert($data);          // put the data in the table
+            if ($insert_id) { //if the data has been saved in the database.
+
+                //$data['heading'] = 'Your appointment has not yet been confirmed';
+                //$data['user_subject'] = 'Thank you for your request';
+                $webmaster = $this->appmodel->get_all_records_simple('config', array('config_key' => 'webmaster_email'));
+                $from = $webmaster[0]['value'];
+
+                //send_email($data['user_subject'],$from,$data['email'],$data,'email');
+
+                $data['admin_subject'] = 'The following request has been posted';
+                $data['heading'] = 'The following request has been posted';
+                
+                $data['airline'] = $airline;
+                $data['flight'] = $flight;
+
+                $admin = $this->appmodel->get_all_records_simple('config', array('config_key' => 'admin_email'));
+                $to =  $admin[0]['value'];
+                send_email($data['admin_subject'], $from, $to, $data, 'request');
+
+
+                //$this->_full_slot($date,$time,$insert_id,$data['email']);
+                $this->session->set_flashdata('message', 'Your Request has been received by us, we will contact you shortly. Meanwhile, You can book another ride.');
+                redirect('reservation/thankyou');
+            } else { //if the data could not be saved in the database.
+                $this->session->set_flashdata('message', 'Your Request could not be saved due to some problem, Kindly try again.');
+                redirect('reservation/thankyou');
+            }
+        }
+    }
+
     //This method is used to save the reservation form data into the database.
     public function thankyou()
     {
