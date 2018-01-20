@@ -80,6 +80,57 @@
             $('input .rating').rating();
         });
     </script>
+        <style>
+        .contacts-widget {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .qr {
+            width: 180px;
+            text-align: center;
+            flex-grow:1;
+            position:relative;
+        }
+
+        .phones {
+            text-align: center;
+            flex-grow:1;
+            align-self: center;
+        }
+        .qr .img:hover::after {
+        display: block;
+        position:absolute;
+        content: "Chat agents are not always available";
+        position: absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        top:0;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        font-weight: bold;
+        padding-top:40%;
+        border-radius:6px;
+        pointer-events: none;
+        }
+
+        @media only screen and (min-width: 768px) {
+        .qr a {
+        pointer-events: none;
+        }
+        .scan-tap {
+        display:none;
+        }
+        }
+
+        @media only screen and (max-width: 767px) {
+        .scan {
+        display: none;
+        }
+        }
+
+    </style>
 
 </head>
 <body>
@@ -89,10 +140,21 @@
     <div class="row">
     <div class="col-lg-12">
     <div class="col-lg-8"><figure><img src="<?php echo base_url()?>resource/images/rave-logo3.png" alt="" title="" /></figure></div>
-    <div class="col-lg-4 callus"><h3>IF YOU HAVE QUESTIONS<br/>
-CALL US NOW AT<br/>
-Tel: (610) 255-7283<br/> 
-Toll Free: (844)-733-7283</h3></div>
+    <div class="col-lg-4 callus">
+        <div class="contacts-widget">
+        <div class="phones">
+        <h6><span style="font-size: x-large;"><span style="font-size: large;">Tel: (610) 255-7283</span>&nbsp;</span></h6>
+        <h6><span style="font-size: large;">Toll Free: (844)-733-7283</span></h6>
+        </div>
+        <div class="qr" style="text-align: center;">
+        <div class="img"><a href="https://allo.app.goo.gl/u-ilbcUdVkEs7Mc5voBXmO2E"><img class="qr" src="/allo.png" alt="" /></a></div>
+        <span style="font-size: medium;" class="scan">Scan to chat via Allo</span> <span style="font-size: medium;" class="scan-tap">Scan or tap to chat via Allo</span></div>
+        </div>
+        <!--<h3>IF YOU HAVE QUESTIONS<br/>
+        CALL US NOW AT<br/>
+        Tel: (610) 255-7283<br/>
+        Toll Free: (844)-733-7283</h3>-->
+    </div>
     </div>
     </div>
     <!--  //main menu  -->

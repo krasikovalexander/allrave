@@ -58,11 +58,11 @@ $(document).ready(function () {
         //var phone_regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
         /*var phone_regex = /^\d+$/;*/
         /*var phone_regex = /^(?=.*\d)[\d ]+$/;*/
-        var phone_regex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
-        if(!(phone_regex.test($('#phone').val())) || $('#phone').val() < 10){
-                valid = false;
-                $('.error_message ul').append("<li> Please enter the phone number properly</li>");
-        }
+        //var phone_regex = /^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i;
+        //if(!(phone_regex.test($('#phone').val())) || $('#phone').val() < 10){
+        //        valid = false;
+        //        $('.error_message ul').append("<li> Please enter the phone number properly</li>");
+        //}
 
         var email_regex = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
         if(!(email_regex.test($("#email").val()))){

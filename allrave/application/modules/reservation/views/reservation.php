@@ -54,7 +54,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
     <link href="<?=base_url()?>resource/js/material-datetime-picker.css" rel="stylesheet">
     <script src="<?=base_url()?>resource/js/material-datetime-picker.js" charset="utf-8"></script>
+    <style>
+        .contacts-widget {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .qr {
+            width: 180px;
+            text-align: center;
+            flex-grow:1;
+            position:relative;
+        }
 
+        .phones {
+            text-align: center;
+            flex-grow:1;
+            align-self: center;
+        }
+        .qr .img:hover::after {
+        display: block;
+        position:absolute;
+        content: "Chat agents are not always available";
+        position: absolute;
+        left:0;
+        right:0;
+        bottom:0;
+        top:0;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        font-weight: bold;
+        padding-top:40%;
+        border-radius:6px;
+        pointer-events: none;
+        }
+
+        @media only screen and (min-width: 768px) {
+        .qr a {
+        pointer-events: none;
+        }
+        .scan-tap {
+        display:none;
+        }
+        }
+
+        @media only screen and (max-width: 767px) {
+        .scan {
+        display: none;
+        }
+        }
+
+    </style>
 </head>
 
 <body>
@@ -67,10 +117,21 @@
             <div class="col-lg-8">
                 <figure><img src="<?= base_url() ?>resource/images/rave-logo3.png" alt="" title=""/></figure>
             </div>
-            <div class="col-lg-4 callus"><h3>IF YOU HAVE QUESTIONS<br/>
+            <div class="col-lg-4 callus">
+            <div class="contacts-widget">
+                    <div class="phones">
+                    <h6><span style="font-size: x-large;"><span style="font-size: large;">Tel: (610) 255-7283</span>&nbsp;</span></h6>
+                    <h6><span style="font-size: large;">Toll Free: (844)-733-7283</span></h6>
+                    </div>
+                    <div class="qr" style="text-align: center;">
+                    <div class="img"><a href="https://allo.app.goo.gl/u-ilbcUdVkEs7Mc5voBXmO2E"><img class="qr" src="/allo.png" alt="" /></a></div>
+                    <span style="font-size: medium;" class="scan">Scan to chat via Allo</span> <span style="font-size: medium;" class="scan-tap">Scan or tap to chat via Allo</span></div>
+                    </div>
+                    <!--<h3>IF YOU HAVE QUESTIONS<br/>
                     CALL US NOW AT<br/>
                     Tel: (610) 255-7283<br/>
-                    Toll Free: (844)-733-7283</h3></div>
+                    Toll Free: (844)-733-7283</h3>-->
+            </div>
         </div>
     </div>
     <!--  //main menu  -->
@@ -135,9 +196,9 @@
                 <h2>Reservation Form</h2>
 
                 <?php //echo validation_errors(); ?>
-                <?php $attributes = array('id' => 'reservation_form', 'autocomplete'=>"on"); ?>
-                <?php echo form_open('reservation', $attributes); ?>
-                <!--<form action="<? /*=base_url()*/ ?>reservation/book_appointment" method="post" id="reservation_form">-->
+                <?php //$attributes = array('id' => 'reservation_form', 'autocomplete'=>"on"); ?>
+                <?php //echo form_open('reservation', $attributes); ?>
+                <form action="" method="post" id="reservation_form" autocomplete="on">
                 <?php echo form_label('Name: *'); ?> <?php echo form_error('username'); ?>
                 <?php echo form_input(
                     array('id' => 'username', 'name' => 'username', 'placeholder' => 'Name', 'required' => 'required', 'data-name' => 'Username')
@@ -232,7 +293,8 @@
                         'id' => 'pickup_address',
                         'name' => 'pickup_address',
                         'placeholder' => 'Type POI or address',
-                        'autocomplete' => 'on'
+                        'autocomplete' => 'on',
+                        'data-name' => 'Pickup address'
                     )
                 ); ?>
 
@@ -243,12 +305,13 @@
                         'id' => 'drop_address',
                         'name' => 'drop_address',
                         'placeholder' => 'Type POI or address',
-                        'autocomplete' => 'on'
+                        'autocomplete' => 'on',
+                        'data-name' => 'Drop off address'
                     )
                 ); ?>
 
                 <?php echo form_label('Select car: *'); ?> <?php echo form_error('passenger') ?>
-                <select name="passenger" id="passenger" class="image-picker show-html" required>
+                <select name="passenger" id="passenger" class="image-picker show-html">
                     <option value="">Click car image or select from a list</option>
                     <option data-img-src='<?= base_url() ?>resource/images/lexus.jpg' value='2' text-label="Up to 4 passengers">Lexus RX</option>
                     <option data-img-src='<?= base_url() ?>resource/images/dmc.png' value='1' text-label="Up to 6 passengers ($10
@@ -321,13 +384,13 @@ extra for local transportation)">Yukon XL</option>
 
     var pickupPicker = new MaterialDatetimePicker;
     pickupPicker.on('submit', function (val) {
-      $('#date').val(moment(val).format("DD/MM/YYYY hh:mm A"));
+      $('#date').val(moment(val).format("MM/DD/YYYY hh:mm A"));
     });
 
     document.querySelector('#date').addEventListener('click', function () {
       $('#date').blur();
       var timeString = $('#date').val();
-      var time = moment(timeString, "DD/MM/YYYY hh:mm A").isValid() ? moment(timeString, "DD/MM/YYYY hh:mm A") : moment();
+      var time = moment(timeString, "MM/DD/YYYY hh:mm A").isValid() ? moment(timeString, "MM/DD/YYYY hh:mm A") : moment();
       return pickupPicker.open('Date/time of pick up') || pickupPicker.set(time);
     });
 
