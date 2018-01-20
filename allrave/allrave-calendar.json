@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rave-luxury-calendar",
+  "private_key_id": "2b04482030ea378a24135126f5c24ac845cdcb4d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQClariCGmIswJ64\n+8UDlvpQCbuT9ZS8aKlLE2B6KoKqiibV0FlvZL1XS9IIQ$
+  "client_email": "rave-reservation-manager@rave-luxury-calendar.iam.gserviceaccount.com",
+  "client_id": "117842409301667068194",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rave-reservation-manager%40rave-luxury-calendar.iam.gserviceaccount.com"
+}
