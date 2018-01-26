@@ -246,7 +246,7 @@ class Reservation extends MX_Controller
         $this->form_validation->set_rules('passenger', 'Car', 'trim|required');
         
         if ($this->form_validation->run() == false) {
-            $this->load->view('reservation_dev', $data);
+            $this->load->view('reservation', $data);
         } else {
             try {
                 date_default_timezone_set('America/Chicago');
