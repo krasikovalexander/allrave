@@ -15,7 +15,7 @@ class Reservation extends MX_Controller
     }
 
    
-    public function index()
+    /*public function index()
     {
         $data['count_vehicles'] = $this->appmodel->count_vehicles();
         $this->load->model('places/place_model');
@@ -139,12 +139,12 @@ class Reservation extends MX_Controller
                 redirect('reservation/thankyou');
             }
         }
-    }
+    }*/
 
     public function notifications()
     {
-        $req_dump = print_r(getallheaders(), true);
-        file_put_contents('notifications.log', $req_dump, FILE_APPEND);
+        //$req_dump = print_r(getallheaders(), true);
+        //file_put_contents('notifications.log', $req_dump, FILE_APPEND);
 
         $headers = getallheaders();
 
@@ -153,9 +153,17 @@ class Reservation extends MX_Controller
             $reservation = $this->reservation_v2_model->getById(intval(str_replace("notify_", "", $headers['X-Goog-Channel-Id'])));
 
             require_once 'google-api-php-client-master/vendor/autoload.php';
-            putenv('GOOGLE_APPLICATION_CREDENTIALS=allrave-calendar.json');
             $client = new Google_Client();
-            $client->useApplicationDefaultCredentials();
+            $client->setAuthConfig('client-secret.json');
+            $access_token = json_decode(file_get_contents('access-token.json'), true);
+            $refresh_token = file_get_contents('refresh-token.txt');
+            $client->setAccessToken($access_token);
+            if ($client->isAccessTokenExpired()) {
+                $client->refreshToken($refresh_token);
+                $access_token = $client->getAccessToken();
+                file_put_contents('access-token.json', json_encode($access_token));
+            }
+
             $client->setScopes(Google_Service_Calendar::CALENDAR);
 
             $service = new Google_Service_Calendar($client);
@@ -186,11 +194,22 @@ class Reservation extends MX_Controller
                         $event->setAttendees($attendees);
 
                         $updatedEvent = $service->events->update($reservation['calendar_id'], $event->getId(), $event, array('sendNotifications' => true));
+                        $this->reservation_v2_model->setRaveStatus($reservation['id'], "accepted");
                     } elseif ($owner->getResponseStatus() == "declined") {
-                        if (!$reservation['decline_email_sent']) {
-                            $this->reservation_v2_model->set_declined($reservation['id']);
+                        if ($reservation['rave_status'] != "declined") {
+                            $this->reservation_v2_model->setRaveStatus($reservation['id'], "declined");
                             send_email('Rave reservation was declined', 'info@allravetransportation.com', $reservation['email'], $reservation, 'declined');
                         }
+                    }
+                } else {
+                    $client = $attendees[1];
+                    if ($client->getResponseStatus() == "accepted" && $reservation['client_status'] != "accepted") {
+                        $this->reservation_v2_model->setClientStatus($reservation['id'], "accepted");
+                        send_email('Rave reservation was confirmed by client', 'info@allravetransportation.com', $owner->getEmail(), $reservation+['htmlLink' => $event->htmlLink], 'client_accepted');
+                    }
+                    if ($client->getResponseStatus() == "declined" && $reservation['client_status'] != "declined") {
+                        $this->reservation_v2_model->setClientStatus($reservation['id'], "declined");
+                        send_email('Rave reservation was declined by client', 'info@allravetransportation.com', $owner->getEmail(), $reservation+['htmlLink' => $event->htmlLink], 'client_declined');
                     }
                 }
             } else {
@@ -199,28 +218,7 @@ class Reservation extends MX_Controller
         }
     }
 
-    public function oauth()
-    {
-        require_once 'google-api-php-client-master/vendor/autoload.php';
-
-        $client = new Google_Client();
-        $client->setAuthConfig('client_secrets.json');
-        $client->setAccessType("offline");
-        $client->setIncludeGrantedScopes(true);
-        $client->addScope(Google_Service_Calendar::CALENDAR);
-        $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/allrave/oauth');
-
-        if (! isset($_GET['code'])) {
-            $auth_url = $client->createAuthUrl();
-            header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-        } else {
-            $client->authenticate($_GET['code']);
-            $access_token = $client->getAccessToken();
-            echo $access_token;
-        }
-    }
-
-    public function dev()
+    public function index()
     {
         $data['count_vehicles'] = $this->appmodel->count_vehicles();
         $this->load->model('places/place_model');
@@ -286,11 +284,18 @@ class Reservation extends MX_Controller
 
                 if ($id) {
                     require_once 'google-api-php-client-master/vendor/autoload.php';
-                    putenv('GOOGLE_APPLICATION_CREDENTIALS=allrave-calendar.json');
-
+                    
                     $client = new Google_Client();
-                    $client->useApplicationDefaultCredentials();
-                    //$client->setDeveloperKey("AIzaSyDYpNLTXkzH9uxFL21pAYbQsfoqzvU31tw");
+                    $client->setAuthConfig('client-secret.json');
+                    $access_token = json_decode(file_get_contents('access-token.json'), true);
+                    $refresh_token = file_get_contents('refresh-token.txt');
+                    $client->setAccessToken($access_token);
+                    if ($client->isAccessTokenExpired()) {
+                        $client->refreshToken($refresh_token);
+                        $access_token = $client->getAccessToken();
+                        file_put_contents('access-token.json', json_encode($access_token));
+                    }
+
                     $client->setScopes(Google_Service_Calendar::CALENDAR);
 
                     $service = new Google_Service_Calendar($client);
@@ -319,7 +324,7 @@ class Reservation extends MX_Controller
                         'dateTime' => $fulldate->format(DateTime::RFC3339),
                       ),
                       'attendees' => array(
-                        array('email' => 'krasikovap@gmail.com', 'displayName' => 'Rave Luxury Transportation', 'responseStatus' => 'needsAction'),
+                        array('email' => '610allrave@gmail.com', 'displayName' => 'Rave Luxury Transportation', 'responseStatus' => 'needsAction'),
                       ),
                       'reminders' => array(
                         'useDefault' => false,
@@ -350,6 +355,21 @@ class Reservation extends MX_Controller
                     redirect('reservation/thankyou');
                 }
             } catch (Exception $e) {
+
+                $webmaster = $this->appmodel->get_all_records_simple('config', array('config_key' => 'webmaster_email'));
+                $from = $webmaster[0]['value'];
+
+                $data['admin_subject'] = 'Request failed!';
+                $data['heading'] = 'The following request has been posted';
+                
+                $data['airline'] = $airline;
+                $data['flight'] = $flight;
+                $data['error'] = $e->getMessage();
+
+                $admin = $this->appmodel->get_all_records_simple('config', array('config_key' => 'admin_email'));
+                $to = $admin[0]['value'];
+                send_email($data['admin_subject'], $from, $to, $data, 'request_fail');
+
                 file_put_contents('exceptions.log', $e->getMessage(), FILE_APPEND);
                 $this->session->set_flashdata('message', 'Your Request could not be saved due to some problem, Kindly try again.');
                 redirect('reservation/thankyou');

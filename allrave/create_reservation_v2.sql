@@ -15,6 +15,8 @@ CREATE TABLE `fx_reservation_v2` (
   `special_instruction` text,
   `calendar_id` varchar(100) NULL,
   `event_id` varchar(100) NULL,
-  `decline_email_sent` int(1) NULL,
+  `rave_status` varchar(20) NULL,
+  `client_status` varchar(20) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

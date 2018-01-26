@@ -29,14 +29,24 @@ class Reservation_v2_model extends CI_Model
         return true;
     }
 
-    public function set_declined($id)
+    public function setRaveStatus($id, $status)
     {
         $data = array(
-            'decline_email_sent' => 1
+            'rave_status' => $status
         );
         $this->db->where('id', $id)->update('reservation_v2', $data);
         return true;
     }
+
+    public function setClientStatus($id, $status)
+    {
+        $data = array(
+            'client_status' => $status
+        );
+        $this->db->where('id', $id)->update('reservation_v2', $data);
+        return true;
+    }
+
 
     public function getById($id)
     {

@@ -193,7 +193,7 @@
             </div>
 
             <div class="col-lg-8 resform">
-                <h2>DEV Reservation Form</h2>
+                <h2>Reservation Form</h2>
 
                 <?php //echo validation_errors(); ?>
                 <?php //$attributes = array('id' => 'reservation_form', 'autocomplete'=>"on"); ?>

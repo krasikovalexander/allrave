@@ -6,7 +6,7 @@
           <!-- nav -->
           <nav class="nav-primary hidden-xs">
             <ul class="nav">
-				<li class="<?php if($page == lang('event_calender')){echo  "active"; }?>"> <a href="<?=base_url()?>events/event_calender" > <i class="fa fa-calendar icon"> <b class="bg-success"></b> </i>
+	<!--			<li class="<?php if($page == lang('event_calender')){echo  "active"; }?>"> <a href="<?=base_url()?>events/event_calender" > <i class="fa fa-calendar icon"> <b class="bg-success"></b> </i>
                 <span>Calendar </span> </a> </li>
                 <li class="<?php if($page == lang('requests')){ echo 'active';} ?>">
                     <a href="<?=base_url()?>requests/view_requests"> <i class="fa fa-dashboard icon"> <b class="bg-success"></b> </i>
@@ -22,7 +22,7 @@
                   <span>Send Email </span> </a> </li>
               <li class="<?php if($page == lang('padding')){echo  "active"; }?>"> <a href="<?=base_url()?>padding" > <i class="fa fa-dropbox icon"> <b class="bg-success"></b> </i>
                   <span>Set Padding </span> </a> </li>
-
+-->
               <li class="<?php if($page == lang('general_settings') OR $page == lang('admin') OR $page == lang('system_settings') OR $page == lang('email_settings')){echo  "active"; }?>">
                 <a href="#" >
                 <i class="fa fa-cogs icon"> <b class="bg-success"></b> </i>
@@ -51,6 +51,12 @@
                 <span><?=lang('airlines')?> </span> </a> 
               </li>
 
+              <li> 
+                <a href="<?=base_url()?>settings/oauth" > 
+                  <i class="fa fa-calendar icon"> <b class="bg-success"></b> </i>
+                  <span>Calendar OAuth2</span> 
+                </a> 
+              </li>
               </ul> </nav>
             </div>
           </section>

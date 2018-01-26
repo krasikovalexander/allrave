@@ -334,7 +334,7 @@ extra for local transportation)">Yukon XL</option>
                 </label>
 -->
                 <label class='enrollnum1'>
-                <?php echo form_checkbox(array('id' => 'terms','name'  => 'terms', 'value' => 'terms', 'class' => 'enrollnum', 'required' => 'required')); ?> I understand that the appointment has not been confirmed until I receive email from 610allrave@gmail.com stating my appointment request has been accepted.  
+                <?php echo form_checkbox(array('id' => 'terms','name'  => 'terms', 'value' => 'terms', 'class' => 'enrollnum', 'required' => 'required')); ?> I understand that the appointment is not  confirmed until I receive an email invite stating appointment has been accepted.   
                 </label>
                 <?php echo form_submit(array('value' => 'SUBMIT', 'class' => 'submit')); ?>
                 <?php echo form_reset(array('value' => 'RESET', 'class' => 'reset')); ?>

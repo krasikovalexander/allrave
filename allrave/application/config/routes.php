@@ -39,7 +39,7 @@
 */
 
 //$route['default_controller'] 	= 'welcome';
-$route['default_controller'] 	= 'events/event_calender';
+$route['default_controller'] 	= 'settings/update/system';
 $route['404_override'] 			= 'errors/error_404';
 $route['user/(:any)'] = "user/view";
 $route['portfolio/(:any)'] = "portfolio/view";

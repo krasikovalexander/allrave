@@ -5,6 +5,11 @@ class Settings extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->library('tank_auth');
+		if (!$this->tank_auth->is_logged_in()) {
+            $this->session->set_flashdata('message',lang('login_required'));
+            redirect('auth/login');
+        }
+
 		if ($this->tank_auth->user_role($this->tank_auth->get_role_id()) != 'admin') {
 			$this->session->set_flashdata('response_status', 'error');
 			$this->session->set_flashdata('message', lang('access_denied'));
@@ -12,6 +17,48 @@ class Settings extends MX_Controller {
 		}
 		$this->load->model('settings_model');
 	}
+
+	public function oauth()
+    {
+        require_once 'google-api-php-client-master/vendor/autoload.php';
+        try {
+            $client = new Google_Client();
+            $client->setAuthConfig('client-secret.json');
+            $client->setAccessType("offline");
+            $client->setIncludeGrantedScopes(true);
+            $client->addScope(Google_Service_Calendar::CALENDAR);
+            $client->setApprovalPrompt('force');
+            $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/allrave/settings/oauth');
+
+            if (! isset($_GET['code'])) {
+                $auth_url = $client->createAuthUrl();
+                header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
+            } else {
+                $client->authenticate($_GET['code']);
+                $access_token = $client->getAccessToken();
+                $refresh_token = $client->getRefreshToken();
+                file_put_contents('access-token.json', json_encode($access_token));
+                file_put_contents('refresh-token.txt', $refresh_token);
+
+                $rule = new Google_Service_Calendar_AclRule();
+		        $scope = new Google_Service_Calendar_AclRuleScope();
+
+		        $scope->setType("user");
+		        $scope->setValue("610allrave@gmail.com");
+		        $rule->setScope($scope);
+		        $rule->setRole("owner");
+				
+				$service = new Google_Service_Calendar($client);
+		        $service->acl->insert('primary', $rule);
+
+                $this->session->set_flashdata('message', 'Permissons granted successfully!');
+                redirect('');
+            }
+        } catch (Exception $e) {
+            file_put_contents('exceptions.log', $e->getMessage(), FILE_APPEND);
+            echo $e->getMessage();
+        }
+    }
 
 	function update()
 	{
